@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SpaceListComponent } from './webex-layout/space-list/space-list.component';
 import { WebexLayoutComponent } from './webex-layout/webex-layout.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { SpaceDetailsComponent } from './webex-layout/space-details/space-detail
     SpaceListComponent,
     WebexLayoutComponent,
     SpaceDetailsComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,

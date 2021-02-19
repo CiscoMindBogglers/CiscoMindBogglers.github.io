@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  client_id: 'C0ef456ac130f8e0b1be37bb7c36e67bc19210f45e644c3f51c2e19c73fc02934',
+  redirect_uri: 'http://localhost:4200/webex',
+  scope: 'spark:all spark:kms'
 };
 
 /*
