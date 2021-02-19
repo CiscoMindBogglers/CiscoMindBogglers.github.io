@@ -9,6 +9,7 @@ import { AuthComponent } from './auth/auth.component';
 import { SpaceListComponent } from './webex-layout/space-list/space-list.component';
 import { WebexLayoutComponent } from './webex-layout/webex-layout.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { SpaceDetailsComponent } from './webex-layout/space-details/space-detail
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
