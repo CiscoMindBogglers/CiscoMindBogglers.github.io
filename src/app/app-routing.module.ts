@@ -4,6 +4,7 @@ import { AuthComponent } from '../app/auth/auth.component';
 import { HomeComponent } from '../app/home/home.component';
 import { WebexTeamsComponent } from '../app/webex-teams/webex-teams.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
+import { WebexLayoutComponent } from './webex-layout/webex-layout.component'
 
 const routes: Routes = [
   {
@@ -20,9 +21,10 @@ const routes: Routes = [
     component: SpaceDetailsComponent,
   },
   {
-    path: 'webex-teams',
-    component: WebexTeamsComponent
+    path: 'webex',
+    component: WebexLayoutComponent
   }  
+  
 ];
 
 @NgModule({
