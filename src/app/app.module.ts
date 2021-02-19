@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SpaceListComponent } from './webex-layout/space-list/space-list.component';
+import { WebexLayoutComponent } from './webex-layout/webex-layout.component';
+import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SpaceListComponent,
+    WebexLayoutComponent,
+    SpaceDetailsComponent
   ],
   imports: [
     BrowserModule,
