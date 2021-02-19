@@ -3,9 +3,9 @@
     <div class="md-sidebar-nav">
       <div class="md-sidebar-nav__header md-margin__top--l md-padding__bottom--l ">
         <div class="md-avatar md-avatar--active md-avatar--44" title="Tom Smith">
-          <span class="md-avatar__letter">TS</span>
+          <span class="md-avatar__letter">{{this.intial}}</span>
         </div>
-        <p class="md-margin__left--s">Tom Smith</p>
+        <p class="md-margin__left--s">{{this.displayName}}/p>
 
       </div>
       <div class="md-list md-list--vertical md-sidebar-nav__group md-sidebar-nav__group--primary" role="list">
@@ -13,7 +13,7 @@
         <div *ngFor="let a of roomsList; let index = index">
           <a class="md-list-item" id="md-sidebar__nav-item-2-1" role="listitem"
             data-md-event-key="md-sidebar__nav-item-2-1" routerLink="./rooms">
-            <div class="md-list-item__center">{{roomsList[index].title}}</div>
+            <div class="md-list-item">{{roomsList[index].title}}</div>
           </a>
         </div>
 

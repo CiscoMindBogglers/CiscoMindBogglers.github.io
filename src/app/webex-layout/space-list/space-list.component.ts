@@ -10,6 +10,7 @@ import { WebexService } from 'src/app/webex.service';
 export class SpaceListComponent implements OnInit {
 
   displayName: string;
+  intial: string;
   roomsList: any;
   
   constructor(private webex: WebexService, public router: Router) { }
@@ -19,6 +20,10 @@ export class SpaceListComponent implements OnInit {
       console.log("Printing rooms")
       console.log(rooms.items);
       this.roomsList = rooms.items;
+    });
+    this.webex.fetchMyDetails().then((data) => {
+      this.displayName = data.displayName;
+      this.intial = this.webex.getUserInitial(this.displayName );
     });
   }
 }

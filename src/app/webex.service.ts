@@ -14,7 +14,7 @@ export class WebexService {
   currentMeeting: any;
   subject: Subject<any> = new Subject()
 
-  constructor( public router: Router) { }
+  constructor(public router: Router) { }
 
   async listenForWebex() {
     this.webex.once(`ready`, () => {
@@ -80,16 +80,20 @@ export class WebexService {
     return this.webex.people.get('me');
   }
 
+  getUserInitial(name: string) {
+    return name.split(" ").map((n) => n[0]).join("");
+  }
+
   async fetchUserDetails(id: string) {
     return this.webex.people.get(id)
   }
 
   async searchPeople(searchText: string, shouldFetchAll: boolean = false) {
-    return this.webex.people.list({displayName: searchText, showAllTypes: shouldFetchAll})
+    return this.webex.people.list({ displayName: searchText, showAllTypes: shouldFetchAll })
   }
 
   async listRoom(limit: number = 10) {
-    return this.webex.rooms.list({max: limit});
+    return this.webex.rooms.list({ max: limit });
   }
 
   async createRoom(name: string) {
@@ -99,7 +103,7 @@ export class WebexService {
       console.log(error);
     }
   }
-  
+
   async getRoom(id: string) {
     return this.webex.rooms.get(id)
   }
@@ -108,7 +112,7 @@ export class WebexService {
     return this.webex.rooms.remove(id);
   }
 
-  async addPeople(email:string, roomid:string) {
+  async addPeople(email: string, roomid: string) {
     return this.webex.memberships.create({
       personEmail: email,
       roomId: roomid
@@ -116,10 +120,10 @@ export class WebexService {
   }
 
   async listMessages(roomId: string) {
-    return this.webex.messages.list({roomId: roomId})
+    return this.webex.messages.list({ roomId: roomId })
   }
 
-  async sendMsg (roomid, msg){
+  async sendMsg(roomid, msg) {
     return this.webex.messages.create({
       text: msg,
       roomId: roomid
@@ -133,8 +137,8 @@ export class WebexService {
   listenForMsgEvents() {
     this.webex.messages.listen().then(() => {
       console.log('listening to message events');
-      this.webex.messages.on('created', (event) => this.subject.next({webexEvent: 'msgCreated', event}));
-      this.webex.messages.on('deleted', (event) => this.subject.next({webexEvent: 'msgDeleted', event}));
+      this.webex.messages.on('created', (event) => this.subject.next({ webexEvent: 'msgCreated', event }));
+      this.webex.messages.on('deleted', (event) => this.subject.next({ webexEvent: 'msgDeleted', event }));
     })
   }
 
@@ -176,7 +180,7 @@ export class WebexService {
     }
   }
   printMeeting() {
-    if(this.currentMeeting) {
+    if (this.currentMeeting) {
       return this.currentMeeting.id;
     }
     return 'No Meeting';
