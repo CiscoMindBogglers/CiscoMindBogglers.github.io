@@ -13,7 +13,7 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     SpaceListComponent,
     WebexLayoutComponent,
-    SpaceDetailsComponent
+    SpaceDetailsComponent,
     LoginComponent
   ],
   imports: [
