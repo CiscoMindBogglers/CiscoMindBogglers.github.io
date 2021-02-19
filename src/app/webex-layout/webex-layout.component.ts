@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WebexService } from '../webex-app.service';
+import { WebexService } from '../webex.service';
 
 
 @Component({

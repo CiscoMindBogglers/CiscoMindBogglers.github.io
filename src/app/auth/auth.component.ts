@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WebexService } from '../webex-app.service'
+import { WebexService } from '../webex.service'
 
 @Component({
   selector: 'app-auth',
@@ -11,7 +11,7 @@ export class AuthComponent implements OnInit {
   constructor(private webex: WebexService) {}
 
   ngOnInit() {
-    this.webex.onBeforeLogin()
+    this.webex.beforeLogin()
   }
 
   ngOnDestroy() {
