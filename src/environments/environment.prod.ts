@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  client_id: 'Caed2d8f69571a9164c576a7f663d6fb0d1457c5fc453de8d2a34be39e4046ab6',
-  redirect_uri: 'http://localhost:4200/home',
+  client_id: 'C0ef456ac130f8e0b1be37bb7c36e67bc19210f45e644c3f51c2e19c73fc02934',
+  redirect_uri: 'http://CiscoMindBogglers.github.io/',
   scope: 'spark:all spark:kms'
-};
+}
