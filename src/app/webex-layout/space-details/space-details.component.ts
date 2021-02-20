@@ -15,11 +15,12 @@ export class SpaceDetailsComponent implements OnInit {
   name = '';
   intial: string;
   messages;
-  messageInitialList=[]
+  messageInitialList=[];
+  map
   @ViewChild('f', { static: true }) form:NgForm;
 
 
-  constructor(private webex: WebexService, private route: ActivatedRoute,private renderer:Renderer2) {}
+  constructor(private webex: WebexService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.webex.listenForMsgEvents();
@@ -36,6 +37,7 @@ export class SpaceDetailsComponent implements OnInit {
       this.roomID = params['id'];
       this.name = params['name'];
       this.intial = this.webex.getUserInitial(this.name);
+      this.map = new Map();
       this.webex.listMessages(this.roomID).then((message) => {
         console.log(message.items);
 
@@ -45,18 +47,18 @@ export class SpaceDetailsComponent implements OnInit {
         //this.messageInitialList=this.messageInitialList.reverse();
         this.messages.forEach(element => {
 
+          this.webex.fetchUserDetails(element.personId).then((data) => {
+            if(!this.map.has(data.id) ){
+              this.map.set(data.id,this.webex.getUserInitial(data.displayName ))
+            }
+          });
 
         });
       });
 
     });
   }
-  messageInitialListFn(personId){
-    this.webex.fetchUserDetails(personId).then((data) => {
-      return this.webex.getUserInitial(data.displayName )
-    });
 
-  }
   addPeople() {
     //this.webex.addPeople(this.email, this.roomID);
   }

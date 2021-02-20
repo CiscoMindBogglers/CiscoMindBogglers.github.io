@@ -1,66 +1,92 @@
-<div class="medium-10 columns"style="display: flex; padding-top: 0.5rem;padding-bottom:0.2rem ;padding-left: 7px">
-  <div class="md-avatar md-avatar--44" title="Tom Smith">
-    <span class="md-avatar__letter">{{ this.intial }}</span>
+<div
+  class="border md-margin__top--s md-padding__bottom--s"
+  style="
+    display: flex;
+    background-color: #7f53ac;
+    background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+  "
+>
+  <div
+    class="medium-10 columns"
+    style="
+      display: flex;
+      padding-top: 0.5rem;
+      padding-bottom: 0.2rem;
+      padding-left: 7px;
+    "
+  >
+    <div class="md-avatar md-avatar--44" title="Tom Smith">
+      <span class="md-avatar__letter">{{ this.intial }}</span>
+    </div>
+    <p class="md-margin__left--s md-padding__top--s md-margin__bottom--s " style="font-size: large;
+    color: white;">{{ this.name }}</p>
   </div>
-  <p class="md-margin__left--s md-padding__top--s">{{ this.name }}</p>
-</div>
-<div class="medium-2 columns text-right " style=" padding-top: 1rem;">
-  <!-- <i (click)="addPeople()"class="icon icon-call-room_28 md-color--black-50 "></i> -->
-  <i (click)="addPeople()" class="icon icon-plus-circle-active_24 md-color--black-50 md-padding__right--s"></i>
+  <div class="medium-2 columns text-right" style="padding-top: 1rem">
+    <!-- <i (click)="addPeople()"class="icon icon-call-room_28 md-color--black-50 "></i> -->
+    <i
+      (click)="addPeople()"
+      class="icon icon-plus-circle-active_24 md-color--black-50 md-padding__right--s"
+    ></i>
 
-  <i class="icon icon-audio-and-video-connection_24  md-color--black-50 "></i>
-
+    <i class="icon icon-audio-and-video-connection_24 md-color--black-50"></i>
+  </div>
 </div>
-<hr />
-<ul style="max-height: 870px;overflow-y: auto;">
+
+<ul style="max-height: 870px; overflow-y: auto">
   <div *ngFor="let a of messages; let index = index">
-    <div style="display: flex;">
-      <div class="md-avatar md-avatar--44" title="Tom Smith" style="margin-top: 10px;">
-        <span class="md-avatar__letter"> </span>
+    <div style="display: flex">
+      <div
+        class="md-avatar md-avatar--44"
+        title="Tom Smith"
+        style="margin-top: 15px"
+      >
+        <span class="md-avatar__letter"
+          >{{ map.get(messages[index].personId) }}
+        </span>
       </div>
       <!-- <p class="md-margin__left--s md-padding__top--s">{{messages[index].created}}</p> -->
-      <li class="him" style="margin:5px" >
-       <p style="margin-bottom:0px ;">{{ messages[index].text }}</p>
-       <p style="margin-bottom:0px ;">{{messages[index].created |date:'medium'}}</p>
-      </li>
+      <div style="margin: 5px; display: grid">
+        <p style="margin-bottom: 0px">
+          {{ messages[index].created | date: "short" }}
+        </p>
+        <li class="him" style="margin-bottom: 0px">
+          {{ messages[index].text }}
+        </li>
+      </div>
     </div>
     <!-- <li  [ngClass]="(direction(index)=='right')?'me':'him'">
       {{ messages[index].text }}
     </li> -->
-
-
   </div>
-
 </ul>
 
-
-<div class="medium-10" style="position:fixed;bottom:0">
-<hr />
+<div class="medium-10" style="position: fixed; bottom: 0">
+  <hr />
   <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-
-      <div class="md-input-container medium-11 columns md-padding__left--l">
-        <textarea
-          class="md-input"
-          type="text"
-          id="sendMessage"
-          name="sendMessage"
-          rows="2"
-          required
-          ngModel
-        ></textarea>
-
-      </div>
-
-
-    <div class="medium-1 columns md-padding__top--s">
-      <button class="md-button " type="submit" [disabled]="!f.valid" style=" background-color: #7f53ac;
-      background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);">
-        <i class="icon icon-send_24 md-color--white "></i>
-       </button>
+    <div class="md-input-container medium-11 columns md-padding__left--l">
+      <textarea
+        class="md-input"
+        type="text"
+        id="sendMessage"
+        name="sendMessage"
+        rows="2"
+        required
+        ngModel
+      ></textarea>
     </div>
 
-
-
+    <div class="medium-1 columns md-padding__top--s">
+      <button
+        class="md-button"
+        type="submit"
+        [disabled]="!f.valid"
+        style="
+          background-color: #7f53ac;
+          background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+        "
+      >
+        <i class="icon icon-send_24 md-color--white"></i>
+      </button>
+    </div>
   </form>
-
 </div>
