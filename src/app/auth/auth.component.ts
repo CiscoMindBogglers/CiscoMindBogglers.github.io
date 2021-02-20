@@ -11,9 +11,12 @@ export class AuthComponent implements OnInit {
   constructor(private webex: WebexService) {}
 
   ngOnInit() {
-    this.webex.beforeLogin()
+    this.webex.beforeLogin();
+    this.doLogin();
   }
-
+  doLogin() {
+    this.webex.doLogin();
+  }
   ngOnDestroy() {
 
   }

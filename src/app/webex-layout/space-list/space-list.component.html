@@ -12,7 +12,9 @@
 
         <div *ngFor="let a of roomsList; let index = index">
           <a class="md-list-item" id="md-sidebar__nav-item-2-1" role="listitem"
-            data-md-event-key="md-sidebar__nav-item-2-1" routerLink="./rooms">
+            data-md-event-key="md-sidebar__nav-item-2-1"
+            [routerLink]="['/webex',roomsList[index].title,roomsList[index].id]"
+            >
             <div class="md-list-item">{{roomsList[index].title}}</div>
           </a>
         </div>

@@ -1,9 +1,51 @@
+<div style="display: flex; padding-top: 0.5rem; padding-left: 7px">
+  <div class="md-avatar md-avatar--44" title="Tom Smith">
+    <span class="md-avatar__letter">{{ this.intial }}</span>
+  </div>
+  <p class="md-margin__left--s md-padding__top--s">{{ this.name }}</p>
+</div>
 
-<p>Space Name</p>
-<hr>
+<hr />
+<ul>
+  <div *ngFor="let a of messages; let index = index" #MessagesList >
 
-<div class="footer">
-  <hr>
-  <p>Footer</p>
+    <!-- <li  [ngClass]="(direction(index)=='right')?'me':'him'">
+      {{ messages[index].text }}
+    </li> -->
+    <li  class="him">
+      {{ messages[index].text }}
+    </li>
+  </div>
+
+</ul>
+
+<hr />
+<div >
+
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+      <div class="md-input-container medium-11 columns md-padding__left--l">
+        <textarea
+          class="md-input"
+          type="text"
+          id="sendMessage"
+          name="sendMessage"
+          rows="2"
+          required
+          ngModel
+        ></textarea>
+
+      </div>
+
+
+    <div class="medium-1 columns md-padding__top--s">
+      <button class="md-button md-button--blue" type="submit" [disabled]="!f.valid">
+        <i class="icon icon-send_24 md-color--black-50 "></i>
+       </button>
+    </div>
+
+
+
+  </form>
 
 </div>
