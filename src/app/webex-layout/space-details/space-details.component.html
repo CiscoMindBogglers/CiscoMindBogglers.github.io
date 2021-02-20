@@ -14,13 +14,21 @@
 <hr />
 <ul style="max-height: 870px;overflow-y: auto;">
   <div *ngFor="let a of messages; let index = index">
-
+    <div style="display: flex;">
+      <div class="md-avatar md-avatar--44" title="Tom Smith" style="margin-top: 10px;">
+        <span class="md-avatar__letter"> </span>
+      </div>
+      <!-- <p class="md-margin__left--s md-padding__top--s">{{messages[index].created}}</p> -->
+      <li class="him" style="margin:5px" >
+       <p style="margin-bottom:0px ;">{{ messages[index].text }}</p>
+       <p style="margin-bottom:0px ;">{{messages[index].created |date:'medium'}}</p>
+      </li>
+    </div>
     <!-- <li  [ngClass]="(direction(index)=='right')?'me':'him'">
       {{ messages[index].text }}
     </li> -->
-    <li  class="him">
-      {{ messages[index].text }}
-    </li>
+
+
   </div>
 
 </ul>
@@ -45,8 +53,9 @@
 
 
     <div class="medium-1 columns md-padding__top--s">
-      <button class="md-button md-button--blue" type="submit" [disabled]="!f.valid">
-        <i class="icon icon-send_24 md-color--black-50 "></i>
+      <button class="md-button " type="submit" [disabled]="!f.valid" style=" background-color: #7f53ac;
+      background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);">
+        <i class="icon icon-send_24 md-color--white "></i>
        </button>
     </div>
 

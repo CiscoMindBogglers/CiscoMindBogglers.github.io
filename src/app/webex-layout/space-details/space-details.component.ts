@@ -38,17 +38,25 @@ export class SpaceDetailsComponent implements OnInit {
       this.intial = this.webex.getUserInitial(this.name);
       this.webex.listMessages(this.roomID).then((message) => {
         console.log(message.items);
-        // this.webex.fetchUserDetails(message.items.personId).then((data) => {
-        //   this.messageInitialList.push(this.webex.getUserInitial(data.displayName )) ;
-        // });
+
+        console.log(this.messageInitialList)
+       // this.messageInitialList=  this.messageInitialList.reverse();
         this.messages = message.items.reverse();
         //this.messageInitialList=this.messageInitialList.reverse();
+        this.messages.forEach(element => {
 
+
+        });
       });
 
     });
   }
+  messageInitialListFn(personId){
+    this.webex.fetchUserDetails(personId).then((data) => {
+      return this.webex.getUserInitial(data.displayName )
+    });
 
+  }
   addPeople() {
     //this.webex.addPeople(this.email, this.roomID);
   }
