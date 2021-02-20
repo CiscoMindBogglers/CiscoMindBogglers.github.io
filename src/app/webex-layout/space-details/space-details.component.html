@@ -1,13 +1,19 @@
-<div style="display: flex; padding-top: 0.5rem; padding-left: 7px">
+<div class="medium-10 columns"style="display: flex; padding-top: 0.5rem;padding-bottom:0.2rem ;padding-left: 7px">
   <div class="md-avatar md-avatar--44" title="Tom Smith">
     <span class="md-avatar__letter">{{ this.intial }}</span>
   </div>
   <p class="md-margin__left--s md-padding__top--s">{{ this.name }}</p>
 </div>
+<div class="medium-2 columns text-right " style=" padding-top: 1rem;">
+  <!-- <i (click)="addPeople()"class="icon icon-call-room_28 md-color--black-50 "></i> -->
+  <i (click)="addPeople()" class="icon icon-plus-circle-active_24 md-color--black-50 md-padding__right--s"></i>
 
+  <i class="icon icon-audio-and-video-connection_24  md-color--black-50 "></i>
+
+</div>
 <hr />
-<ul>
-  <div *ngFor="let a of messages; let index = index" #MessagesList >
+<ul style="max-height: 870px;overflow-y: auto;">
+  <div *ngFor="let a of messages; let index = index">
 
     <!-- <li  [ngClass]="(direction(index)=='right')?'me':'him'">
       {{ messages[index].text }}
@@ -19,9 +25,9 @@
 
 </ul>
 
-<hr />
-<div >
 
+<div class="medium-10" style="position:fixed;bottom:0">
+<hr />
   <form (ngSubmit)="onSubmit(f)" #f="ngForm">
 
       <div class="md-input-container medium-11 columns md-padding__left--l">

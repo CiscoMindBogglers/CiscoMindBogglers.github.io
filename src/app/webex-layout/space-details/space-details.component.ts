@@ -17,7 +17,7 @@ export class SpaceDetailsComponent implements OnInit {
   messages;
   messageInitialList=[]
   @ViewChild('f', { static: true }) form:NgForm;
-  @ViewChild('MessagesList') MessagesList:ElementRef;
+
 
   constructor(private webex: WebexService, private route: ActivatedRoute,private renderer:Renderer2) {}
 
@@ -25,13 +25,10 @@ export class SpaceDetailsComponent implements OnInit {
     this.webex.listenForMsgEvents();
     this.webex.subject.subscribe(({webexEvent,event})=>{
        if(webexEvent=='msgCreated' ){
-         console.log(event.data.text)
-         let change_this;
-         change_this= this.renderer.createElement('li');
-         change_this.textContent=event.data.text;
 
-         this.renderer.addClass(change_this, 'me');
-         this.renderer.appendChild(this.MessagesList.nativeElement, change_this)
+         if(event.data.roomId==this.roomID){
+          this.messages.push(event.data)
+         }
        }
 
     });
@@ -45,7 +42,7 @@ export class SpaceDetailsComponent implements OnInit {
         //   this.messageInitialList.push(this.webex.getUserInitial(data.displayName )) ;
         // });
         this.messages = message.items.reverse();
-        this.messageInitialList=this.messageInitialList.reverse();
+        //this.messageInitialList=this.messageInitialList.reverse();
 
       });
 
@@ -53,7 +50,7 @@ export class SpaceDetailsComponent implements OnInit {
   }
 
   addPeople() {
-    this.webex.addPeople(this.email, this.roomID);
+    //this.webex.addPeople(this.email, this.roomID);
   }
   onSubmit(form: NgForm) {
 
