@@ -84,6 +84,10 @@ export class WebexService {
     return name.split(" ").map((n) => n[0]).join("");
   }
 
+  getFirstName(name: string) {
+    return name.split(" ")[0];
+  }
+
   async fetchUserDetails(id: string) {
     return this.webex.people.get(id)
   }

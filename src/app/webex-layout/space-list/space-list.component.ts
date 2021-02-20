@@ -10,6 +10,7 @@ import { WebexService } from 'src/app/webex.service';
 export class SpaceListComponent implements OnInit {
 
   displayName: string;
+  firstName: string;
   intial: string;
   roomsList: any;
   
@@ -24,6 +25,7 @@ export class SpaceListComponent implements OnInit {
     this.webex.fetchMyDetails().then((data) => {
       this.displayName = data.displayName;
       this.intial = this.webex.getUserInitial(this.displayName );
+      this.firstName = this.webex.getFirstName(this.displayName );
     });
   }
 }

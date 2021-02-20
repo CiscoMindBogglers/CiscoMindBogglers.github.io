@@ -1,24 +1,23 @@
-<div class="md-sidebar md-sidebar--dark md-sidebar--global widthClass">
-  <div class="md-sidebar__body">
+<div class="md-sidebar md-sidebar--dark md-sidebar--global webex-sidebar">
+  <div class="md-sidebar__body webex-sidebar">
     <div class="md-sidebar-nav">
       <div class="md-sidebar-nav__header md-margin__top--l md-padding__bottom--l ">
-        <div class="md-avatar md-avatar--active md-avatar--44" title="Tom Smith">
+        <div class="md-avatar md-avatar--active md-avatar--32" title="{{this.displayName}}">
           <span class="md-avatar__letter">{{this.intial}}</span>
         </div>
-        <p class="md-margin__left--s">{{this.displayName}}</p>
-
+        <p class="md-margin__left--s">{{this.firstName}}</p><br>
+        <p>Logout</p>
       </div>
-      <div class="md-list md-list--vertical md-sidebar-nav__group md-sidebar-nav__group--primary" role="list">
+      <hr>
+      <div class="md-list md-list--vertical md-sidebar-nav__group md-sidebar-nav__group--primary md-padding__left—l" role="list">
 
         <div *ngFor="let a of roomsList; let index = index">
           <a class="md-list-item" id="md-sidebar__nav-item-2-1" role="listitem"
-            data-md-event-key="md-sidebar__nav-item-2-1"
-            [routerLink]="['/webex',roomsList[index].title,roomsList[index].id]"
-            >
-            <div class="md-list-item">{{roomsList[index].title}}</div>
+            data-md-event-key="md-sidebar__nav-item-2-1"  [routerLink]="['/webex',roomsList[index].title,roomsList[index].id]">
+            <div class="md-list-item space-name">{{roomsList[index].title}}</div>
           </a>
         </div>
-
+        <div class="md-card-section md-card-section--full">hello</div>
       </div>
     </div>
   </div>
