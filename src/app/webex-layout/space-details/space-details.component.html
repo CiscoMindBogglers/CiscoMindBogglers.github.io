@@ -8,7 +8,8 @@
       </div>
       <div class="col-md-3 space-icons float-right">
         <i *ngIf="type=='group'" (click)="addPeople()" class="icon icon-plus-circle-active_24 md-padding__right--s"></i>
-        <i class="icon icon-audio-and-video-connection_24 "></i>
+        <i class="icon icon-audio-and-video-connection_24 md-padding__right--s "></i>
+        <a *ngIf="type=='group'" (click)='exitRoom()'><i  class="icon icon-exit-room_24 "></i></a>
       </div>
   </div>
   <div class="message">

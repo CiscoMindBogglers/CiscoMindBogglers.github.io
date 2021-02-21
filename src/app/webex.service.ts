@@ -5,42 +5,44 @@ import { Router } from '@angular/router';
 import WebexSDK from 'webex';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebexService {
   webex: any;
   registered: boolean;
   syncStatus: string;
   currentMeeting: any;
-  subject: Subject<any> = new Subject()
+  subject: Subject<any> = new Subject();
 
-  constructor(public router: Router) { }
+  constructor(public router: Router) {}
 
   async listenForWebex() {
     this.webex.once(`ready`, () => {
       console.log('READY', this.webex.credentials.supertoken);
       if (this.webex.credentials.supertoken) {
-        localStorage.setItem('webex_token', this.webex.credentials.supertoken.access_token);
+        localStorage.setItem(
+          'webex_token',
+          this.webex.credentials.supertoken.access_token
+        );
       }
     });
   }
 
   beforeLogin() {
     if (this.isAuthorized()) {
-      this.router.navigate(["/webex"]);
+      this.router.navigate(['/webex']);
     } else {
       this.webex = WebexSDK.init({
         config: {
           meetings: {
-            deviceType: 'WEB'
+            deviceType: 'WEB',
           },
           credentials: {
             client_id: environment.client_id,
             redirect_uri: environment.redirect_uri,
-            scope: environment.scope
-          }
-        }
-
+            scope: environment.scope,
+          },
+        },
       });
       this.listenForWebex();
     }
@@ -59,8 +61,7 @@ export class WebexService {
       if (this.webex.canAuthorize) {
         console.log('Already Logged in');
         this.webex.logout();
-      }
-      else {
+      } else {
         this.webex.logout();
         console.log('Cannot logout when no user is authenticated');
       }
@@ -72,12 +73,12 @@ export class WebexService {
     this.webex = WebexSDK.init({
       config: {
         meetings: {
-          deviceType: 'WEB'
-        }
+          deviceType: 'WEB',
+        },
       },
       credentials: {
-        access_token: localStorage.getItem('webex_token')
-      }
+        access_token: localStorage.getItem('webex_token'),
+      },
     });
     this.listenForWebex();
   }
@@ -87,9 +88,12 @@ export class WebexService {
   }
 
   getUserInitial(name: string) {
-    var initial = "";
+    var initial = '';
     try {
-      initial = name.split(" ").map((n) => n[0]).join("");
+      initial = name
+        .split(' ')
+        .map((n) => n[0])
+        .join('');
     } catch (e) {
       if (name != undefined) {
         initial = name.charAt(0);
@@ -99,22 +103,29 @@ export class WebexService {
   }
 
   getFirstName(name: string) {
-    return name.split(" ")[0];
+    return name.split(' ')[0];
   }
 
   async fetchUserDetails(id: string) {
-    return this.webex.people.get(id)
+    return this.webex.people.get(id);
   }
 
   async searchPeople(searchText: string, shouldFetchAll: boolean = false) {
-    return this.webex.people.list({ displayName: searchText, showAllTypes: shouldFetchAll })
+    return this.webex.people.list({
+      displayName: searchText,
+      showAllTypes: shouldFetchAll,
+    });
   }
 
   async listRoom(limit: number = 1000) {
-    return this.webex.rooms.list({ max: limit, sortBy: "lastactivity" });
+    return this.webex.rooms.list({ max: limit, sortBy: 'lastactivity' });
   }
   async filterListRoom(type) {
-    return this.webex.rooms.list({ max: 1000, sortBy: "lastactivity", type: type });
+    return this.webex.rooms.list({
+      max: 1000,
+      sortBy: 'lastactivity',
+      type: type,
+    });
   }
 
   async createRoom(name: string) {
@@ -126,7 +137,7 @@ export class WebexService {
   }
 
   async getRoom(id: string) {
-    return this.webex.rooms.get(id)
+    return this.webex.rooms.get(id);
   }
 
   async leaveRoom(id: string) {
@@ -136,31 +147,63 @@ export class WebexService {
   async addPeople(email: string, roomid: string) {
     return this.webex.memberships.create({
       personEmail: email,
-      roomId: roomid
+      roomId: roomid,
+    });
+  }
+  async removePeople(email: string, roomid: string) {
+    this.webex.memberships.list({ roomId: roomid }).then((memberships) => {
+      console.log(memberships.items);
+      memberships.items.forEach((element) => {
+        console.log(element.personEmail);
+        console.log(email);
+        if (element.personEmail == email) {
+          return this.webex.memberships.remove(element);
+        }
+      });
     });
   }
 
   async listMessages(roomId: string) {
-    return this.webex.messages.list({ roomId: roomId })
+    return this.webex.messages.list({ roomId: roomId });
   }
 
   async sendMsg(roomid, msg) {
     return this.webex.messages.create({
       text: msg,
-      roomId: roomid
+      roomId: roomid,
     });
   }
 
   async listenRoom() {
-    return this.webex.rooms.listen()
+    return this.webex.rooms.listen();
   }
 
   listenForMsgEvents() {
     this.webex.messages.listen().then(() => {
       console.log('listening to message events');
-      this.webex.messages.on('created', (event) => this.subject.next({ webexEvent: 'msgCreated', event }));
-      this.webex.messages.on('deleted', (event) => this.subject.next({ webexEvent: 'msgDeleted', event }));
-    })
+      this.webex.messages.on('created', (event) =>
+        this.subject.next({ webexEvent: 'msgCreated', event })
+      );
+      this.webex.messages.on('deleted', (event) =>
+        this.subject.next({ webexEvent: 'msgDeleted', event })
+      );
+    });
+  }
+  listenForMemberShipEvents() {
+    this.webex.memberships.listen().then(() => {
+      console.log('listening to membership events');
+      this.webex.memberships.on('created', (event) =>
+        this.subject.next({ webexEvent: 'memberShipCreated', event })
+      );
+      this.webex.memberships.on('deleted', (event) => {
+        this.subject.next({ webexEvent: 'memberShipDeleted', event });
+        console.log('Deleted');
+      });
+      this.webex.memberships.on('updated', (event) => {
+        this.subject.next({ webexEvent: 'memberShipUpdated', event });
+        console.log('Updated');
+      });
+    });
   }
 
   receiveNewMessage(): Observable<any> {
@@ -206,5 +249,4 @@ export class WebexService {
     }
     return 'No Meeting';
   }
-
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import { faStickyNote} from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { emailService } from '../emailId.service';
 
 @Component({
   selector: 'app-space-list',
@@ -15,20 +16,29 @@ export class SpaceListComponent implements OnInit {
   faBullhorn = faBullhorn;
   faPhoneAlt = faPhoneAlt;
   faStickyNote = faStickyNote;
-  faCalendar = faCalendar; 
+  faCalendar = faCalendar;
   displayName: string;
   firstName: string;
   intial: string;
   roomsList: any;
-  
-  constructor(private webex: WebexService, public router: Router) { }
+
+  constructor(private webex: WebexService, public router: Router,private email:emailService) { }
   ngOnInit(): void {
+    this.webex.listenForMemberShipEvents();
+    this.webex.subject.subscribe(({ webexEvent, event }) => {
+      if (webexEvent == 'memberShipDeleted') {
+        console.log("membership Removed")
+       console.log(event)
+      }
+
+    });
     this.webex.listRoom().then((rooms) => {
       console.log("Printing rooms")
       console.log(rooms.items);
       this.roomsList = rooms.items;
     });
     this.webex.fetchMyDetails().then((data) => {
+      this.email.emailId.next(data.emails[0]);
       this.displayName = data.displayName;
       this.intial = this.webex.getUserInitial(this.displayName );
       this.firstName = this.webex.getFirstName(this.displayName );

@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
-
+import { emailService } from '../emailId.service';
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-space-details',
   templateUrl: './space-details.component.html',
@@ -18,10 +19,11 @@ export class SpaceDetailsComponent implements OnInit {
   type;
   messageInitialList = [];
   map
+  currentUserEmail:string='';
   @ViewChild('f', { static: true }) form: NgForm;
 
 
-  constructor(private webex: WebexService, private route: ActivatedRoute) { }
+  constructor(private webex: WebexService, private route: ActivatedRoute,private router:Router,private emailService:emailService) { }
 
   ngOnInit(): void {
     this.webex.onInit();
@@ -34,6 +36,9 @@ export class SpaceDetailsComponent implements OnInit {
       }
 
     });
+    this.emailService.emailId.pipe(take(2)).subscribe((email)=>{
+      this.currentUserEmail=email;
+    })
     this.route.params.subscribe((params: Params) => {
       this.roomID = params['id'];
       this.name = params['name'];
@@ -60,6 +65,12 @@ export class SpaceDetailsComponent implements OnInit {
   }
   getInitial(name){
     return this.webex.getUserInitial(name)
+  }
+  exitRoom(){
+    this.webex.removePeople(this.currentUserEmail,this.roomID).then(()=>{
+      console.log("exited space")
+      this.router.navigate(["/webex"]);
+    })
   }
   addPeople() {
     //this.webex.addPeople(this.email, this.roomID);
