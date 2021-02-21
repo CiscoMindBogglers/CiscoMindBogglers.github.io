@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import { faStickyNote} from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { emailService } from '../emailId.service';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,7 +15,7 @@ import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-b
   templateUrl: './space-list.component.html',
   styleUrls: ['./space-list.component.scss']
 })
-export class SpaceListComponent implements OnInit {
+export class SpaceListComponent implements OnInit,OnDestroy {
   faBullhorn = faBullhorn;
   faPhoneAlt = faPhoneAlt;
   faStickyNote = faStickyNote;
@@ -29,6 +30,7 @@ export class SpaceListComponent implements OnInit {
   direct: boolean;
   modalOptions:NgbModalOptions;
   closeResult: string;
+  membershipSubs: Subscription;
 
 
   constructor(private webex: WebexService, public router: Router, private modalService: NgbModal,private email:emailService) {
@@ -47,10 +49,17 @@ export class SpaceListComponent implements OnInit {
       this.roomsList = rooms.items;
     });
     this.webex.listenForMemberShipEvents();
-    this.webex.subject.subscribe(({ webexEvent, event }) => {
+   this.membershipSubs= this.webex.MemberShipsubject.subscribe(({ webexEvent, event }) => {
+      console.log(webexEvent)
       if (webexEvent == 'memberShipDeleted') {
         console.log("membership Removed")
        console.log(event)
+       this.roomsList=[]
+       this.webex.listRoom().then((rooms) => {
+         console.log("Printing rooms")
+         console.log(rooms.items);
+         this.roomsList = rooms.items;
+       })
       }
 
     });
@@ -130,5 +139,9 @@ export class SpaceListComponent implements OnInit {
       }
       this.roomsList = searchedArr;
     });
+  }
+  ngOnDestroy(){
+    this.webex.listenForMemberShipEventsCleanup();
+    this.membershipSubs.unsubscribe()
   }
 }
