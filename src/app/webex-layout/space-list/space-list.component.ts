@@ -37,7 +37,6 @@ export class SpaceListComponent implements OnInit {
   }
   doLogout(){
     this.webex.logout();
-    
   }
     
 }

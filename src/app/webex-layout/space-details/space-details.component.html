@@ -41,13 +41,13 @@
         style="margin-top: 15px"
       >
         <span class="md-avatar__letter"
-          >{{ map.get(messages[index].personId) }}
+          >{{ this.getInitial(map.get(messages[index].personId)) }}
         </span>
       </div>
       <!-- <p class="md-margin__left--s md-padding__top--s">{{messages[index].created}}</p> -->
       <div style="margin: 5px; display: grid">
-        <p style="margin-bottom: 0px">
-          {{ messages[index].created | date: "short" }}
+        <p style="margin-bottom: 0px; font-size: 10px;">
+          <span style="margin-right: 5px">{{ map.get(messages[index].personId) }}</span>  <span>{{ messages[index].created | date: "short" }}</span>
         </p>
         <li class="him" style="margin-bottom: 0px">
           {{ messages[index].text }}

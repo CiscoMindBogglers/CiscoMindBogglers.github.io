@@ -15,22 +15,22 @@ export class SpaceDetailsComponent implements OnInit {
   name = '';
   intial: string;
   messages;
-  messageInitialList=[];
+  messageInitialList = [];
   map
-  @ViewChild('f', { static: true }) form:NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
 
 
-  constructor(private webex: WebexService, private route: ActivatedRoute) {}
+  constructor(private webex: WebexService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.webex.listenForMsgEvents();
-    this.webex.subject.subscribe(({webexEvent,event})=>{
-       if(webexEvent=='msgCreated' ){
+    this.webex.subject.subscribe(({ webexEvent, event }) => {
+      if (webexEvent == 'msgCreated') {
 
-         if(event.data.roomId==this.roomID){
+        if (event.data.roomId == this.roomID) {
           this.messages.push(event.data)
-         }
-       }
+        }
+      }
 
     });
     this.route.params.subscribe((params: Params) => {
@@ -42,14 +42,14 @@ export class SpaceDetailsComponent implements OnInit {
         console.log(message.items);
 
         console.log(this.messageInitialList)
-       // this.messageInitialList=  this.messageInitialList.reverse();
+        // this.messageInitialList=  this.messageInitialList.reverse();
         this.messages = message.items.reverse();
         //this.messageInitialList=this.messageInitialList.reverse();
         this.messages.forEach(element => {
 
           this.webex.fetchUserDetails(element.personId).then((data) => {
-            if(!this.map.has(data.id) ){
-              this.map.set(data.id,this.webex.getUserInitial(data.displayName ))
+            if (!this.map.has(data.id)) {
+              this.map.set(data.id, data.displayName)
             }
           });
 
@@ -58,32 +58,34 @@ export class SpaceDetailsComponent implements OnInit {
 
     });
   }
-
+  getInitial(name){
+    return this.webex.getUserInitial(name)
+  }
   addPeople() {
     //this.webex.addPeople(this.email, this.roomID);
   }
   onSubmit(form: NgForm) {
 
-    this.webex.sendMsg(this.roomID, form.value.sendMessage).then(()=>{
+    this.webex.sendMsg(this.roomID, form.value.sendMessage).then(() => {
       form.reset()
     });
   }
- classCurrent
-  direction(index){
-  //console.log(index)
-    if(index==0){
-      this.classCurrent='right'
+  classCurrent
+  direction(index) {
+    //console.log(index)
+    if (index == 0) {
+      this.classCurrent = 'right'
       //console.log(this.classCurrent)
       return this.classCurrent
     }
-    else if(index>=1 && this.messages[index-1].personId==this.messages[index].personId){
+    else if (index >= 1 && this.messages[index - 1].personId == this.messages[index].personId) {
       //console.log(this.classCurrent)
 
       return this.classCurrent
     }
-    else{
+    else {
 
-      this.classCurrent=='left'?this.classCurrent='right':this.classCurrent='left';
+      this.classCurrent == 'left' ? this.classCurrent = 'right' : this.classCurrent = 'left';
       //console.log(this.classCurrent)
 
       return this.classCurrent
