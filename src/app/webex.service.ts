@@ -86,7 +86,15 @@ export class WebexService {
   }
 
   getUserInitial(name: string) {
-    return name.split(" ").map((n) => n[0]).join("");
+    var initial = "";
+    try {
+      initial = name.split(" ").map((n) => n[0]).join("");
+    } catch (e) {
+      if (name != undefined){
+        initial = name.charAt(0);
+      }
+    }
+    return initial;
   }
 
   getFirstName(name: string) {
@@ -102,7 +110,10 @@ export class WebexService {
   }
 
   async listRoom(limit: number = 1000) {
-    return this.webex.rooms.list({ max: limit });
+    return this.webex.rooms.list({ max: limit, sortBy:"lastactivity"});
+  }
+  async filterListRoom(type) {
+    return this.webex.rooms.list({ max: 1000, sortBy:"lastactivity",type:type});
   }
 
   async createRoom(name: string) {

@@ -34,8 +34,31 @@ export class SpaceListComponent implements OnInit {
       this.firstName = this.webex.getFirstName(this.displayName );
     });
   }
-  doLogout(){
+  logout(){
     this.webex.logout();
   }
-    
+  updatespacelist( type ){
+    console.log("update space list: " + type) ;
+    if (type == "group") {
+      this.webex.filterListRoom("group").then((rooms) => {
+        console.log("Printing rooms")
+        console.log(rooms.items);
+        this.roomsList = rooms.items;
+      });
+    }
+    if (type == "direct") {
+      this.webex.filterListRoom("direct").then((rooms) => {
+        console.log("Printing rooms")
+        console.log(rooms.items);
+        this.roomsList = rooms.items;
+      });
+    }
+    if (type == "all") {
+      this.webex.listRoom().then((rooms) => {
+        console.log("Printing rooms")
+        console.log(rooms.items);
+        this.roomsList = rooms.items;
+      });
+    }
+  }
 }

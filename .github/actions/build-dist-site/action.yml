@@ -1,0 +1,6 @@
+name: 'Deploy new version'
+description: 'Setup Angular env and build new site version'
+author: 'Sumit Kar'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
