@@ -81,7 +81,15 @@ export class WebexService {
   }
 
   getUserInitial(name: string) {
-    return name.split(" ").map((n) => n[0]).join("");
+    var initial = "";
+    try {
+      initial = name.split(" ").map((n) => n[0]).join("");
+    } catch (e) {
+      if (name != undefined){
+        initial = name.charAt(0);
+      }
+    }
+    return initial;
   }
 
   getFirstName(name: string) {
