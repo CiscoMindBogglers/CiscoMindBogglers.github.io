@@ -13,6 +13,9 @@ import { NgSelect2Module } from 'ng-select2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BroadcastComponent } from './webex-layout/broadcast/broadcast.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NotesComponent } from './webex-layout/notes/notes.component';
+import { MeetingComponent } from './webex-layout/meeting/meeting.component';
+import { CalendarComponent } from './webex-layout/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SpaceListComponent,
     WebexLayoutComponent,
     SpaceDetailsComponent,
-    BroadcastComponent
+    BroadcastComponent,
+    NotesComponent,
+    MeetingComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

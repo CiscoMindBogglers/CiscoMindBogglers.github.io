@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from '../app/auth/auth.component';
 import { HomeComponent } from '../app/home/home.component';
 import { BroadcastComponent } from './webex-layout/broadcast/broadcast.component';
+import { CalendarComponent } from './webex-layout/calendar/calendar.component';
+import { MeetingComponent } from './webex-layout/meeting/meeting.component';
+import { NotesComponent } from './webex-layout/notes/notes.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
 import { WebexLayoutComponent } from './webex-layout/webex-layout.component'
 
@@ -23,6 +26,15 @@ const routes: Routes = [
       path: 'broadcast',
       component: BroadcastComponent,
     }, {
+      path: 'notes',
+      component: NotesComponent,
+    }, {
+      path: 'meeting',
+      component: MeetingComponent,
+    },{
+      path: 'calendar',
+      component: CalendarComponent,
+    },{
       path: ':name/:type/:id',
       component: SpaceDetailsComponent,
     }]
