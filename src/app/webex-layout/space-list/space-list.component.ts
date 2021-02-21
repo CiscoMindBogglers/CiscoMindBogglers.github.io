@@ -6,6 +6,8 @@ import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import { faStickyNote} from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { emailService } from '../emailId.service';
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-space-list',
@@ -22,8 +24,28 @@ export class SpaceListComponent implements OnInit {
   intial: string;
   roomsList: any;
 
-  constructor(private webex: WebexService, public router: Router,private email:emailService) { }
+  all: boolean;
+  group: boolean;
+  direct: boolean;
+  modalOptions:NgbModalOptions;
+  closeResult: string;
+
+
+  constructor(private webex: WebexService, public router: Router, private modalService: NgbModal,private email:emailService) {
+    this.modalOptions = {
+      backdrop:'static',
+      backdropClass:'customBackdrop',
+      windowClass: 'fade in'
+    }
+  }
+
   ngOnInit(): void {
+    this. all = true;
+    this.webex.listRoom().then((rooms) => {
+      console.log("Printing rooms")
+      console.log(rooms.items);
+      this.roomsList = rooms.items;
+    });
     this.webex.listenForMemberShipEvents();
     this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'memberShipDeleted') {
@@ -31,11 +53,6 @@ export class SpaceListComponent implements OnInit {
        console.log(event)
       }
 
-    });
-    this.webex.listRoom().then((rooms) => {
-      console.log("Printing rooms")
-      console.log(rooms.items);
-      this.roomsList = rooms.items;
     });
     this.webex.fetchMyDetails().then((data) => {
       this.email.emailId.next(data.emails[0]);
@@ -50,6 +67,9 @@ export class SpaceListComponent implements OnInit {
   updatespacelist( type ){
     console.log("update space list: " + type) ;
     if (type == "group") {
+      this.group = true;
+      this. all = false;
+      this.direct = false;
       this.webex.filterListRoom("group").then((rooms) => {
         console.log("Printing rooms")
         console.log(rooms.items);
@@ -57,6 +77,9 @@ export class SpaceListComponent implements OnInit {
       });
     }
     if (type == "direct") {
+      this.group = false;
+      this. all = false;
+      this.direct = true;
       this.webex.filterListRoom("direct").then((rooms) => {
         console.log("Printing rooms")
         console.log(rooms.items);
@@ -64,11 +87,33 @@ export class SpaceListComponent implements OnInit {
       });
     }
     if (type == "all") {
+      this.group = false;
+      this. all = true;
+      this.direct = false;
       this.webex.listRoom().then((rooms) => {
         console.log("Printing rooms")
         console.log(rooms.items);
         this.roomsList = rooms.items;
       });
+    }
+  }
+
+  openModal(content) {
+    debugger;
+    this.modalService.open(content, this.modalOptions).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
     }
   }
   search(event){

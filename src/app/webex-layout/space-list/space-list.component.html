@@ -10,20 +10,20 @@
   </div>
 
   <div class="search-add-bar">
-    <!-- <ng-select2 class="space-search" width="80%" [placeholder]="'Search'"></ng-select2> -->
     <input placeholder="Search" class="space-search" (keyup)="search($event)">
-    <span class="shadow-sm create-space">+</span>
+    <span (click)="openModal(template)" class="shadow-sm create-space">+</span>
   </div>
 
   <div class="space-list">
     <div class="filter">
-      <span (click)="this.updatespacelist('all')">All</span> | <span
-        (click)="this.updatespacelist('group')">Spaces</span> | <span
-        (click)="this.updatespacelist('direct')">Direct</span>
+      <span (click)="this.updatespacelist('all')" [ngClass]="all ? 'filter-active' : ''">All</span> | <span
+        (click)="this.updatespacelist('group')" [ngClass]="group ? 'filter-active' : ''">Spaces</span> | <span
+        (click)="this.updatespacelist('direct')" [ngClass]="direct ? 'filter-active' : ''">Direct</span>
     </div>
     <div class="card-list">
       <div *ngFor="let a of roomsList; let index = index">
-        <div class="card shadow-sm profile-card" [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
+        <div class="card shadow-sm profile-card"
+          [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
           <div class="space-list-item space-name">{{roomsList[index].title}}</div>
         </div>
       </div>
@@ -44,3 +44,30 @@
     </span>
   </div>
 </div>
+<ng-template #template let-modal>
+  <div calss="modal fade in">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create Space</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="md-form mb-5">
+
+        <input type="text" id="roomName" class="form-control" mdbInput mdbValidate>
+        <label for="roomName">Space Name</label>
+      </div>
+
+      <div class="md-form mb-4">
+        <input type="email" id="personMail" class="form-control" mdbInput mdbValidate>
+        <label for="personMail">Email ID</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" mdbBtn color="blue" rounded="true" data-toggle="modal" data-target="#basicExample"
+        (click)="createSpace()" mdbWavesEffect>Create Space
+      </button>
+    </div>
+  </div>
+</ng-template>
