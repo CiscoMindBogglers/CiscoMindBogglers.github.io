@@ -15,6 +15,7 @@ export class SpaceDetailsComponent implements OnInit {
   name = '';
   intial: string;
   messages;
+  type;
   messageInitialList = [];
   map
   @ViewChild('f', { static: true }) form: NgForm;
@@ -23,10 +24,10 @@ export class SpaceDetailsComponent implements OnInit {
   constructor(private webex: WebexService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.webex.onInit();
     this.webex.listenForMsgEvents();
     this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'msgCreated') {
-
         if (event.data.roomId == this.roomID) {
           this.messages.push(event.data)
         }
@@ -36,15 +37,14 @@ export class SpaceDetailsComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.roomID = params['id'];
       this.name = params['name'];
+      this.type = params['type'];
       this.intial = this.webex.getUserInitial(this.name);
       this.map = new Map();
       this.webex.listMessages(this.roomID).then((message) => {
         console.log(message.items);
 
         console.log(this.messageInitialList)
-        // this.messageInitialList=  this.messageInitialList.reverse();
         this.messages = message.items.reverse();
-        //this.messageInitialList=this.messageInitialList.reverse();
         this.messages.forEach(element => {
 
           this.webex.fetchUserDetails(element.personId).then((data) => {
@@ -72,22 +72,16 @@ export class SpaceDetailsComponent implements OnInit {
   }
   classCurrent
   direction(index) {
-    //console.log(index)
     if (index == 0) {
       this.classCurrent = 'right'
-      //console.log(this.classCurrent)
       return this.classCurrent
     }
     else if (index >= 1 && this.messages[index - 1].personId == this.messages[index].personId) {
-      //console.log(this.classCurrent)
-
       return this.classCurrent
     }
     else {
 
       this.classCurrent == 'left' ? this.classCurrent = 'right' : this.classCurrent = 'left';
-      //console.log(this.classCurrent)
-
       return this.classCurrent
     }
 
