@@ -1,3 +1,45 @@
+.main-content{
+  min-height: 100vh;
+  max-height: 100vh;
+  margin-left: 250px;
+  overflow: hidden;
+}
+.topnav-header{
+  padding: 15px;
+  display: flex;
+  min-height: 10vh;
+  max-height: 10vh;
+  background-color: #7f53ac;
+    background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+}
+.space-name-avatar{
+  display: flex;
+}
+.space-name {
+  margin-left: 10px;
+  font-size: large;
+  color: white;
+  padding-top: 7px;
+}
+.space-icons {
+  padding-top: 7px;
+  text-align: right;
+  color: #fff;
+}
+.message {
+  font-size: 14px;
+  padding: 10px;
+}
+.message-body {
+  height: 77vh;
+  overflow-y: scroll;
+}
+.send-message {
+  height: 10vh;
+}
+.noscroll {
+  overflow: hidden;
+}
 .footer {
   position: fixed;
   left: 0;
@@ -24,7 +66,6 @@ li {
 .him {
   float: left;
   border-radius: 0 10px 10px 0;
-  clear: both;
   background-color: #7f53ac;
   background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
 }
@@ -35,6 +76,9 @@ li {
   clear: both;
   background-color: #7f53ac;
  background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+}
+.chat-avatar{
+  min-width: 45px;
 }
 .him.start {
   border-top-left-radius: 10px;
