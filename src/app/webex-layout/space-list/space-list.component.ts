@@ -34,7 +34,6 @@ export class SpaceListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.webex.onInit();
     this.webex.listRoom().then((rooms) => {
       console.log("Printing rooms")
       console.log(rooms.items);
@@ -91,5 +90,20 @@ export class SpaceListComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+  search(event){
+    var searchValue = event.target.value.toLowerCase();
+    var searchedArr = [];
+    var searchroomsList = [];
+    this.webex.listRoom().then((rooms) => {
+      searchroomsList = rooms.items;
+      for (var peopleSpace in  searchroomsList){
+        console.log(searchroomsList[peopleSpace].title);
+        if(searchroomsList[peopleSpace].title.toLowerCase().includes(searchValue)){
+          searchedArr.push(searchroomsList[peopleSpace]);
+        }
+      }
+      this.roomsList = searchedArr;
+    });
   }
 }

@@ -27,10 +27,6 @@
     color: #f1f1f1;
 }
 .space-list {
-    min-height: 78vh;
-    max-height: 78vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
     padding-top: 5px;
     padding-bottom: 5px;
     border-style: none;
@@ -43,6 +39,9 @@
     height: 40px;
     padding: 7px;
     margin: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
 }
 .profile-card > div {
     font-size: 0.7rem  !important;
@@ -121,27 +120,27 @@
     background-color: #653f91;
     color:#fff;
     font-weight: bold;
+    transition: 1s;
 }
+
+
 .filter{
-    margin-left: 12px;
     font-size: 10px;
+    border-bottom-style: solid;
+    border-color: #cbcbcb;
+    border-width: 1px;
+    padding-bottom: 4px;
+    
 }
 .filter > span{
+    margin-left: 12px;
+    margin-right: 12px;
     cursor: pointer;
 }
- .my-class {
-    font-size: 2rem;
-    .modal-dialog { 
-      background-color: yellow;
-      padding:1rem;
-    }  
-    .modal-content {
-      color: white;
-    }
-    .modal-header {
-      background-color: red;
-    }
-    .modal-body {
-      background-color: green;
-    }
+.card-list{
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-height: 74vh;
+    max-height: 74vh;
 }

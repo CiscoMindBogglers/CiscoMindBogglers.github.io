@@ -26,25 +26,31 @@ export class WebexService {
   }
 
   beforeLogin() {
-    this.webex = WebexSDK.init({
-      config: {
-        meetings: {
-          deviceType: 'WEB'
-        },
-        credentials: {
-          client_id: environment.client_id,
-          redirect_uri: environment.redirect_uri,
-          scope: environment.scope
+    if (this.isAuthorized()) {
+      this.router.navigate(["/webex"]);
+    } else {
+      this.webex = WebexSDK.init({
+        config: {
+          meetings: {
+            deviceType: 'WEB'
+          },
+          credentials: {
+            client_id: environment.client_id,
+            redirect_uri: environment.redirect_uri,
+            scope: environment.scope
+          }
         }
-      }
-    });
-    this.listenForWebex();
+
+      });
+      this.listenForWebex();
+    }
   }
 
   doLogin() {
     this.webex.authorization.initiateLogin();
   }
   isAuthorized(): boolean {
+    this.onInit();
     return this.webex.canAuthorize || false;
   }
 
@@ -85,7 +91,7 @@ export class WebexService {
     try {
       initial = name.split(" ").map((n) => n[0]).join("");
     } catch (e) {
-      if (name != undefined){
+      if (name != undefined) {
         initial = name.charAt(0);
       }
     }
@@ -105,10 +111,10 @@ export class WebexService {
   }
 
   async listRoom(limit: number = 1000) {
-    return this.webex.rooms.list({ max: limit, sortBy:"lastactivity"});
+    return this.webex.rooms.list({ max: limit, sortBy: "lastactivity" });
   }
   async filterListRoom(type) {
-    return this.webex.rooms.list({ max: 1000, sortBy:"lastactivity",type:type});
+    return this.webex.rooms.list({ max: 1000, sortBy: "lastactivity", type: type });
   }
 
   async createRoom(name: string) {

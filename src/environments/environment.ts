@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  client_id: 'Caed2d8f69571a9164c576a7f663d6fb0d1457c5fc453de8d2a34be39e4046ab6',
+  client_id: 'C5efed444a7959c12093ba2748e4811dc90c67f4ce70b6ca2894156d9e5f679ea',
   redirect_uri: 'http://localhost:4200/webex',
   scope: 'spark:all spark:kms'
 };
