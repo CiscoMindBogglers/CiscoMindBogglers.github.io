@@ -51,7 +51,13 @@ export class WebexService {
   }
   isAuthorized(): boolean {
     this.onInit();
-    return this.webex.canAuthorize || false;
+    if (this.webex.canAuthorize || 
+      this.webex.credentials.supertoken ||
+      localStorage.getItem('webex_token')) {
+      return true;
+    } else {
+      return false
+    }
   }
 
   logout() {
