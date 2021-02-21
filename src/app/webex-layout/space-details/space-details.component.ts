@@ -1,15 +1,16 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
 import { emailService } from '../emailId.service';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-space-details',
   templateUrl: './space-details.component.html',
   styleUrls: ['./space-details.component.scss'],
 })
-export class SpaceDetailsComponent implements OnInit {
+export class SpaceDetailsComponent implements OnInit,OnDestroy {
   email = '';
   roomID = '';
   message = '';
@@ -21,6 +22,7 @@ export class SpaceDetailsComponent implements OnInit {
   map
   currentUserEmail:string='';
   @ViewChild('f', { static: true }) form: NgForm;
+  roomSubs: Subscription;
 
 
   constructor(private webex: WebexService, private route: ActivatedRoute,private router:Router,private emailService:emailService) { }
@@ -28,7 +30,7 @@ export class SpaceDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.webex.onInit();
     this.webex.listenForMsgEvents();
-    this.webex.subject.subscribe(({ webexEvent, event }) => {
+   this.roomSubs= this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'msgCreated') {
         if (event.data.roomId == this.roomID) {
           this.messages.push(event.data)
@@ -69,7 +71,7 @@ export class SpaceDetailsComponent implements OnInit {
   exitRoom(){
     this.webex.removePeople(this.currentUserEmail,this.roomID).then(()=>{
       console.log("exited space")
-      this.router.navigate(["/webex"]);
+     // this.router.navigate(["/webex"]);
     })
   }
   addPeople() {
@@ -97,5 +99,9 @@ export class SpaceDetailsComponent implements OnInit {
     }
 
 
+  }
+  ngOnDestroy(){
+   this.webex.listenForMsgEventsCleanup();
+   this.roomSubs.unsubscribe();
   }
 }

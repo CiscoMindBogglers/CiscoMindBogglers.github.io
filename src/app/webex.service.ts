@@ -13,7 +13,7 @@ export class WebexService {
   syncStatus: string;
   currentMeeting: any;
   subject: Subject<any> = new Subject();
-
+  MemberShipsubject :Subject<any> = new Subject();
   constructor(public router: Router) {}
 
   async listenForWebex() {
@@ -53,12 +53,14 @@ export class WebexService {
   }
   isAuthorized(): boolean {
     this.onInit();
-    if (this.webex.canAuthorize || 
+    if (
+      this.webex.canAuthorize ||
       this.webex.credentials.supertoken ||
-      localStorage.getItem('webex_token')) {
+      localStorage.getItem('webex_token')
+    ) {
       return true;
     } else {
-      return false
+      return false;
     }
   }
 
@@ -163,7 +165,10 @@ export class WebexService {
         console.log(element.personEmail);
         console.log(email);
         if (element.personEmail == email) {
-          return this.webex.memberships.remove(element);
+          this.webex.memberships.remove(element).then((result)=>{
+            console.log("Inside Remove Space")
+                return result
+          });
         }
       });
     });
@@ -195,23 +200,33 @@ export class WebexService {
       );
     });
   }
+  listenForMsgEventsCleanup() {
+    this.webex.rooms.stopListening();
+    this.webex.rooms.off('created');
+    this.webex.rooms.off('deleted');
+  }
   listenForMemberShipEvents() {
     this.webex.memberships.listen().then(() => {
       console.log('listening to membership events');
       this.webex.memberships.on('created', (event) =>
-        this.subject.next({ webexEvent: 'memberShipCreated', event })
+        this.MemberShipsubject.next({ webexEvent: 'memberShipCreated', event })
       );
       this.webex.memberships.on('deleted', (event) => {
-        this.subject.next({ webexEvent: 'memberShipDeleted', event });
+        this.MemberShipsubject.next({ webexEvent: 'memberShipDeleted', event });
         console.log('Deleted');
       });
       this.webex.memberships.on('updated', (event) => {
-        this.subject.next({ webexEvent: 'memberShipUpdated', event });
+        this.MemberShipsubject.next({ webexEvent: 'memberShipUpdated', event });
         console.log('Updated');
       });
     });
   }
-
+  listenForMemberShipEventsCleanup() {
+    this.webex.memberships.stopListening();
+    this.webex.memberships.off('created');
+    this.webex.memberships.off('updated');
+    this.webex.memberships.off('deleted');
+  }
   receiveNewMessage(): Observable<any> {
     return this.subject.asObservable();
   }
