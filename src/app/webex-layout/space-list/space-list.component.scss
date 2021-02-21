@@ -27,10 +27,6 @@
     color: #f1f1f1;
 }
 .space-list {
-    min-height: 78vh;
-    max-height: 78vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
     padding-top: 5px;
     padding-bottom: 5px;
     border-style: none;
@@ -123,9 +119,22 @@
     font-weight: bold;
 }
 .filter{
-    margin-left: 12px;
     font-size: 10px;
+    border-bottom-style: solid;
+    border-color: #cbcbcb;
+    border-width: 1px;
+    padding-bottom: 4px;
+    
 }
 .filter > span{
+    margin-left: 12px;
+    margin-right: 12px;
     cursor: pointer;
+}
+.card-list{
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-height: 74vh;
+    max-height: 74vh;
 }
