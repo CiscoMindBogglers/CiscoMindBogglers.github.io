@@ -48,7 +48,7 @@ export class WebexService {
     return this.webex.canAuthorize || false;
   }
 
-  onLogout() {
+  logout() {
     if (this.webex) {
       if (this.webex.canAuthorize) {
         console.log('Already Logged in');
@@ -96,7 +96,7 @@ export class WebexService {
     return this.webex.people.list({ displayName: searchText, showAllTypes: shouldFetchAll })
   }
 
-  async listRoom(limit: number = 10) {
+  async listRoom(limit: number = 100) {
     return this.webex.rooms.list({ max: limit });
   }
 

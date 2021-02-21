@@ -33,9 +33,15 @@
             "styles": [
               "node_modules/@momentum-ui/core/scss/momentum-ui.scss",
               "node_modules/@momentum-ui/icons/scss/momentum-ui-icons.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/select2/dist/css/select2.min.css",
               "src/styles.sass"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/select2/dist/js/select2.min.js"
+            ]
           },
           "configurations": {
             "production": {

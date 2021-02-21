@@ -1,24 +1,30 @@
-<div class="md-sidebar md-sidebar--dark md-sidebar--global webex-sidebar">
-  <div class="md-sidebar__body webex-sidebar">
-    <div class="md-sidebar-nav">
-      <div class="md-sidebar-nav__header md-margin__top--l md-padding__bottom--l ">
-        <div class="md-avatar md-avatar--active md-avatar--32" title="{{this.displayName}}">
+<div class="sidenav">
+  <div class="profile-info">
+      <div class="md-avatar md-avatar--active md-avatar--32" title="{{this.displayName}}">
           <span class="md-avatar__letter">{{this.intial}}</span>
-        </div>
-        <p class="md-margin__left--s">{{this.firstName}}</p><br>
-        <p>Logout</p>
       </div>
-      <hr>
-      <div class="md-list md-list--vertical md-sidebar-nav__group md-sidebar-nav__group--primary md-padding__left—l" role="list">
-
-        <div *ngFor="let a of roomsList; let index = index">
-          <a class="md-list-item" id="md-sidebar__nav-item-2-1" role="listitem"
-            data-md-event-key="md-sidebar__nav-item-2-1"  [routerLink]="['/webex',roomsList[index].title,roomsList[index].id]">
-            <div class="md-list-item space-name">{{roomsList[index].title}}</div>
-          </a>
-        </div>
-        <div class="md-card-section md-card-section--full">hello</div>
+      <div>
+          <span class="my-name">{{this.displayName}}</span>
+          <span class="logout"><a>Logout</a></span>
       </div>
-    </div>
   </div>
+
+  <div class="search-add-bar">
+      <ng-select2 class="space-search" width="80%" [placeholder]="'Search'">
+      </ng-select2><span  class="shadow-sm create-space">+</span>
+  </div>
+
+  <div class="space-list">
+      <div *ngFor="let a of roomsList; let index = index">
+          <div class="card shadow-sm profile-card"  [routerLink]="['/webex',roomsList[index].title,roomsList[index].id]">
+              <div class="space-list-item space-name">{{roomsList[index].title}}</div>
+          </div>
+      </div>
+  </div>
+  <div class="space-nav row">
+    <span class="col-md-3 bottom-icon-align-center"><fa-icon [icon]="faPhoneAlt"></fa-icon></span>
+    <span class="col-md-3 bottom-icon-align-center"><fa-icon [icon]="faCalendar"></fa-icon></span>
+    <span class="col-md-3 bottom-icon-align-center"><fa-icon [icon]="faBullhorn"></fa-icon></span>
+    <span class="col-md-3 bottom-icon-align-center bottom-icon-end"><fa-icon [icon]="faStickyNote"></fa-icon></span>
+    </div>
 </div>

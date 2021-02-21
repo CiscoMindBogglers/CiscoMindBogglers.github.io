@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
+import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
+import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
+import { faStickyNote} from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-space-list',
@@ -8,7 +12,10 @@ import { WebexService } from 'src/app/webex.service';
   styleUrls: ['./space-list.component.scss']
 })
 export class SpaceListComponent implements OnInit {
-
+  faBullhorn = faBullhorn;
+  faPhoneAlt = faPhoneAlt;
+  faStickyNote = faStickyNote;
+  faCalendar = faCalendar; 
   displayName: string;
   firstName: string;
   intial: string;
@@ -28,4 +35,9 @@ export class SpaceListComponent implements OnInit {
       this.firstName = this.webex.getFirstName(this.displayName );
     });
   }
+  doLogout(){
+    this.webex.logout();
+    
+  }
+    
 }

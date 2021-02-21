@@ -9,7 +9,8 @@ import { SpaceListComponent } from './webex-layout/space-list/space-list.compone
 import { WebexLayoutComponent } from './webex-layout/webex-layout.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgSelect2Module } from 'ng-select2';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgSelect2Module,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

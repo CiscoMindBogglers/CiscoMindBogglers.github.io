@@ -1,0 +1,116 @@
+.sidenav {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:#f9fbfc;
+    overflow: hidden;
+    padding-top: 20px;
+}
+.sidenav hr {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 0;
+    border-top: 1px solid rgba(91, 91, 91, 0.5)
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+.space-list {
+    min-height: 78vh;
+    max-height: 78vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-style: none;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #b5b5b5;
+}
+.profile-card{
+    height: 40px;
+    padding: 7px;
+    margin: 10px;
+}
+.profile-card > div {
+    font-size: 0.7rem  !important;
+}
+.profile-info{
+    padding: 10px;
+    display: inline-flex;
+    color: #1f1f1f;
+}
+.profile-info > div > .my-name {
+    padding-left: 15px;
+}
+.profile-info > div > .logout > a {
+    padding-left: 15px;
+    font-size: 15px;
+    margin-top: -10px;
+}
+.profile-info > div > .logout > a:hover {
+    color: #7f55ae !important;
+}
+.space-search { 
+    width: 75%;
+    margin-left: 10px ;
+}
+.create-space {
+    border-radius: 50%;
+    background-color: #657eee;
+    color: #fff;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    min-height: 25px;
+    max-height: 25px;
+    max-width: 25px;
+    min-width: 25px;
+    margin-left: 5px;
+}
+.create-space:hover {
+    background-color: #7f55ae;
+}
+.search-add-bar{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top-style: solid;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-width: 1px;
+    border-color: #b5b5b5;
+
+}
+.bottom-icon-align-center {
+    text-align: center;
+    border-right-style: solid;
+    border-color: #b5b5b5;
+    border-width: 1px;
+    color: #4d00a4;
+    height: 100%;
+}
+.bottom-icon-align-center:hover {
+    color: #7f55ae;
+}
+.bottom-icon-end{
+    border-right-style: none !important;
+}
+.space-nav{
+    margin-top: 7px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
