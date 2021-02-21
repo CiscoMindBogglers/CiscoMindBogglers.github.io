@@ -62,7 +62,18 @@ export class SpaceListComponent implements OnInit {
     }
   }
   search(event){
-    console.log(event);
-
+    var searchValue = event.target.value.toLowerCase();
+    var searchedArr = [];
+    var searchroomsList = [];
+    this.webex.listRoom().then((rooms) => {
+      searchroomsList = rooms.items;
+      for (var peopleSpace in  searchroomsList){
+        console.log(searchroomsList[peopleSpace].title);
+        if(searchroomsList[peopleSpace].title.toLowerCase().includes(searchValue)){
+          searchedArr.push(searchroomsList[peopleSpace]);
+        }
+      }
+      this.roomsList = searchedArr;
+    });
   }
 }
