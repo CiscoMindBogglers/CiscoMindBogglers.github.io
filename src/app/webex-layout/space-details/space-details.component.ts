@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormArray, FormGroup, NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
 import { emailService } from '../emailId.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-space-details',
   templateUrl: './space-details.component.html',
@@ -23,9 +25,16 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
   currentUserEmail:string='';
   @ViewChild('f', { static: true }) form: NgForm;
   roomSubs: Subscription;
+  addParticipantsForm: FormGroup;
+  modalOptions:NgbModalOptions;
 
-
-  constructor(private webex: WebexService, private route: ActivatedRoute,private router:Router,private emailService:emailService) { }
+  constructor(private webex: WebexService, private route: ActivatedRoute,private router:Router,private emailService:emailService,private modalService: NgbModal) {
+    this.modalOptions = {
+      backdrop:'static',
+      backdropClass:'customBackdrop',
+      windowClass: 'fade in'
+    }
+  }
 
   ngOnInit(): void {
     this.webex.onInit();
@@ -74,9 +83,6 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
      // this.router.navigate(["/webex"]);
     })
   }
-  addPeople() {
-    //this.webex.addPeople(this.email, this.roomID);
-  }
   onSubmit(form: NgForm) {
 
     this.webex.sendMsg(this.roomID, form.value.sendMessage).then(() => {
@@ -97,9 +103,42 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
       this.classCurrent == 'left' ? this.classCurrent = 'right' : this.classCurrent = 'left';
       return this.classCurrent
     }
-
-
   }
+  get controls() {
+    return (this.addParticipantsForm.get('memberMailID') as FormArray).controls;
+  }
+  onAddMember() {
+    const control = new FormControl(null);
+    (this.addParticipantsForm.get('memberMailID') as FormArray).push(control);
+  }
+  onDeleteMember(index: number) {
+    (this.addParticipantsForm.get('memberMailID') as FormArray).removeAt(index);
+  }
+  onAddUser(memberMailID: []) {
+    memberMailID.forEach((element) => {
+      if (element != null) {
+        this.webex.addPeople(element, this.roomID);
+      }
+    });
+    this.modalService.dismissAll()
+  }
+  onSubmitPartcipants(){
+    this.onAddUser(this.addParticipantsForm.value.memberMailID)
+  }
+  openModal(content) {
+    this.addParticipantsForm = new FormGroup({
+      memberMailID: new FormArray([]),
+    });
+    this.onAddMember();
+    this.modalService.open(content, this.modalOptions).result.then(
+      result => {
+      },
+      reason => {
+      }
+    );
+  }
+
+
   ngOnDestroy(){
    this.webex.listenForMsgEventsCleanup();
    this.roomSubs.unsubscribe();

@@ -1,48 +1,121 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Participants</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addParticipantsForm" >
+      <div formArrayName="memberMailID">
+        <div
+          class="form-group"
+          *ngFor="let memberControl of controls; let i = index"
+        >
+          <input
+            type="text"
+            class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
+            placeholder="Email Id"
+            [formControlName]="i"
+          />
+          <button
+            class="md-button md-button--red md-button--circle md-button--small"
+            (click)="onDeleteMember(i)"
+          >
+            X
+          </button>
+        </div>
+        <a (click)="onAddMember()"> + Add another Member</a>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      [disabled]="!this.addParticipantsForm.valid"
+      class="md-button md-button--blue"
+      type="submit"
+      (click)='onSubmitPartcipants()'
+    >
+      Add
+    </button>
+  </div>
+</ng-template>
 <div class="main-content">
   <div class="topnav-header justify-content-between">
-      <div class="col-md-9 space-name-avatar">
-        <div class="md-avatar md-avatar--44 chat-avatar" title="{{ this.name }}">
-          <span class="md-avatar__letter">{{ this.intial }}</span>
-        </div>
-        <span class="space-name">{{ this.name }}</span>
+    <div class="col-md-9 space-name-avatar">
+      <div class="md-avatar md-avatar--44 chat-avatar" title="{{ this.name }}">
+        <span class="md-avatar__letter">{{ this.intial }}</span>
       </div>
-      <div class="col-md-3 space-icons float-right">
-        <i *ngIf="type=='group'" (click)="addPeople()" class="icon icon-plus-circle-active_24 md-padding__right--s"></i>
-        <i class="icon icon-audio-and-video-connection_24 md-padding__right--s "></i>
-        <a *ngIf="type=='group'" (click)='exitRoom()'><i  class="icon icon-exit-room_24 "></i></a>
-      </div>
+      <span class="space-name">{{ this.name }}</span>
+    </div>
+    <div class="col-md-3 space-icons float-right">
+      <i
+        *ngIf="type == 'group'"
+        (click)="openModal(content)"
+        class="icon icon-plus-circle-active_24 md-padding__right--s"
+      ></i>
+      <i
+        class="icon icon-audio-and-video-connection_24 md-padding__right--s"
+      ></i>
+      <a *ngIf="type == 'group'" (click)="exitRoom()"
+        ><i class="icon icon-exit-room_24"></i
+      ></a>
+    </div>
   </div>
   <div class="message">
-    <div class="card ">
+    <div class="card">
       <div class="card-body message-body">
-        <ul style="margin-top: -10px;">
+        <ul style="margin-top: -10px">
           <div *ngFor="let a of messages; let index = index">
-            <div *ngIf="type=='group'" class="d-flex">
-              <div class="md-avatar md-avatar--44 chat-avatar" title="map.get(messages[index].personId)" style="margin-top: 5px">
-                <span class="md-avatar__letter">{{ this.getInitial(map.get(messages[index].personId)) }}
+            <div *ngIf="type == 'group'" class="d-flex">
+              <div
+                class="md-avatar md-avatar--44 chat-avatar"
+                title="map.get(messages[index].personId)"
+                style="margin-top: 5px"
+              >
+                <span class="md-avatar__letter"
+                  >{{ this.getInitial(map.get(messages[index].personId)) }}
                 </span>
               </div>
               <div style="margin: 5px; display: grid">
-                <p style="margin-bottom: 0px; font-size: 10px;">
-                  <span style="margin-right: 5px">{{ map.get(messages[index].personId) }}</span> <span>{{
-                    messages[index].created | date: "short" }}</span>
+                <p style="margin-bottom: 0px; font-size: 10px">
+                  <span style="margin-right: 5px">{{
+                    map.get(messages[index].personId)
+                  }}</span>
+                  <span>{{ messages[index].created | date: "short" }}</span>
                 </p>
-                <li class="him" >
+                <li class="him">
                   {{ messages[index].text }}
                 </li>
               </div>
             </div>
-            <div *ngIf="type=='direct'" class="d-flex"  [ngClass]="{'flex-row-reverse': direction(index)=='right'}">
-              <div class="md-avatar md-avatar--44 chat-avatar" title="map.get(messages[index].personId)" style="margin-top: 5px">
-                <span class="md-avatar__letter">{{ this.getInitial(map.get(messages[index].personId)) }}
+            <div
+              *ngIf="type == 'direct'"
+              class="d-flex"
+              [ngClass]="{ 'flex-row-reverse': direction(index) == 'right' }"
+            >
+              <div
+                class="md-avatar md-avatar--44 chat-avatar"
+                title="map.get(messages[index].personId)"
+                style="margin-top: 5px"
+              >
+                <span class="md-avatar__letter"
+                  >{{ this.getInitial(map.get(messages[index].personId)) }}
                 </span>
               </div>
               <div style="margin: 5px; display: grid">
-                <p style="margin-bottom: 0px; font-size: 10px;">
-                  <span style="margin-right: 5px">{{ map.get(messages[index].personId) }}</span> <span>{{
-                    messages[index].created | date: "short" }}</span>
+                <p style="margin-bottom: 0px; font-size: 10px">
+                  <span style="margin-right: 5px">{{
+                    map.get(messages[index].personId)
+                  }}</span>
+                  <span>{{ messages[index].created | date: "short" }}</span>
                 </p>
-                <li class="him" >
+                <li class="him">
                   {{ messages[index].text }}
                 </li>
               </div>
@@ -53,11 +126,23 @@
       <div class="card-footer send-message">
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
           <div class="md-input-container medium-11 columns md-padding__left--l">
-            <textarea class="md-input" type="text" id="sendMessage" name="sendMessage" rows="1" required ngModel></textarea>
+            <textarea
+              class="md-input"
+              type="text"
+              id="sendMessage"
+              name="sendMessage"
+              rows="1"
+              required
+              ngModel
+            ></textarea>
           </div>
 
           <div class="medium-1 columns md-padding__top--s">
-            <button class="md-button sendColor" type="submit" [disabled]="!f.valid" >
+            <button
+              class="md-button sendColor"
+              type="submit"
+              [disabled]="!f.valid"
+            >
               <i class="icon icon-send_24 md-color--white"></i>
             </button>
           </div>
