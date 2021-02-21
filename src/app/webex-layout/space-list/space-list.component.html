@@ -10,8 +10,9 @@
   </div>
 
   <div class="search-add-bar">
-    <ng-select2 class="space-search" width="80%" [placeholder]="'Search'">
-    </ng-select2><span class="shadow-sm create-space">+</span>
+    <!-- <ng-select2 class="space-search" width="80%" [placeholder]="'Search'"></ng-select2> -->
+    <input placeholder="Search" class="space-search" (keyup)="search($event)">
+    <span class="shadow-sm create-space">+</span>
   </div>
 
   <div class="space-list">

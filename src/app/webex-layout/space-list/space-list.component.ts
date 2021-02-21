@@ -61,4 +61,8 @@ export class SpaceListComponent implements OnInit {
       });
     }
   }
+  search(event){
+    console.log(event);
+
+  }
 }
