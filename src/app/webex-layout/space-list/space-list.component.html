@@ -16,7 +16,7 @@
 
   <div class="space-list">
       <div *ngFor="let a of roomsList; let index = index">
-          <div class="card shadow-sm profile-card"  [routerLink]="['/webex',roomsList[index].title,roomsList[index].id]">
+          <div class="card shadow-sm profile-card"  [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
               <div class="space-list-item space-name">{{roomsList[index].title}}</div>
           </div>
       </div>

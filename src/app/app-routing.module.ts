@@ -20,7 +20,7 @@ const routes: Routes = [
     path: 'webex',
     component: WebexLayoutComponent,
     children:[{
-      path: ':name/:id',
+      path: ':name/:type/:id',
       component: SpaceDetailsComponent,
     },]
   }

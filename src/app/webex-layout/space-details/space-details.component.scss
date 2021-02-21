@@ -40,21 +40,6 @@
 .noscroll {
   overflow: hidden;
 }
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color:black;
-
-}
-
-hr {
-
-  border: solid #000000;
-  border-width: 1px 0 0;
-}
-
 
 li {
   list-style-type: none;
@@ -65,34 +50,18 @@ li {
 }
 .him {
   float: left;
-  border-radius: 0 10px 10px 0;
+  border-radius: 1rem;
   background-color: #7f53ac;
   background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
-}
-
-.me {
-  float: right;
-  border-radius: 1rem;
-  clear: both;
-  background-color: #7f53ac;
- background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+  margin-bottom: 0px;
 }
 .chat-avatar{
   min-width: 45px;
 }
-.him.start {
-  border-top-left-radius: 10px;
-}
-.him.end {
-  border-bottom-left-radius: 10px;
-}
-.me.start {
-  border-top-right-radius: 10px;
-}
-.me.end {
-  border-bottom-right-radius: 10px;
-}
-
 textarea {
   resize: none;
+}
+.sendColor{
+  background-color: #7f53ac;
+  background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
 }
