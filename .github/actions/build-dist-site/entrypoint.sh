@@ -16,7 +16,7 @@ echo "🏋️ Building website..."
 npm run-script prod-build
 echo "npm build done"
 
-cd dist/CiscoMindBogglers.github.io
+cd dist/webexteamsapp
 
 echo "☁️ Publishing website"
 
