@@ -23,7 +23,6 @@ export class SpaceListComponent implements OnInit {
   
   constructor(private webex: WebexService, public router: Router) { }
   ngOnInit(): void {
-    this.webex.onInit();
     this.webex.listRoom().then((rooms) => {
       console.log("Printing rooms")
       console.log(rooms.items);

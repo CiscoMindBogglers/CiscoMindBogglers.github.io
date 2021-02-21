@@ -39,6 +39,11 @@ export class WebexService {
       }
     });
     this.listenForWebex();
+    if (this.isAuthorized()) {
+      this.router.navigate(["/webex"]);
+    } else {
+      this.doLogin();
+    }
   }
 
   doLogin() {
