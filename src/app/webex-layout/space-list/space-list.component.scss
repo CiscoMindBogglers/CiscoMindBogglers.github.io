@@ -39,6 +39,9 @@
     height: 40px;
     padding: 7px;
     margin: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
 }
 .profile-card > div {
     font-size: 0.7rem  !important;
@@ -117,7 +120,10 @@
     background-color: #653f91;
     color:#fff;
     font-weight: bold;
+    transition: 1s;
 }
+
+
 .filter{
     font-size: 10px;
     border-bottom-style: solid;
