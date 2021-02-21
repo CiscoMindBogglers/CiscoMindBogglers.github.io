@@ -20,9 +20,13 @@ export class SpaceListComponent implements OnInit {
   firstName: string;
   intial: string;
   roomsList: any;
+  all: boolean;
+  group: boolean;
+  direct: boolean;
   
   constructor(private webex: WebexService, public router: Router) { }
   ngOnInit(): void {
+    this. all = true;
     this.webex.listRoom().then((rooms) => {
       console.log("Printing rooms")
       console.log(rooms.items);
@@ -40,6 +44,9 @@ export class SpaceListComponent implements OnInit {
   updatespacelist( type ){
     console.log("update space list: " + type) ;
     if (type == "group") {
+      this.group = true;
+      this. all = false;
+      this.direct = false;
       this.webex.filterListRoom("group").then((rooms) => {
         console.log("Printing rooms")
         console.log(rooms.items);
@@ -47,6 +54,9 @@ export class SpaceListComponent implements OnInit {
       });
     }
     if (type == "direct") {
+      this.group = false;
+      this. all = false;
+      this.direct = true;
       this.webex.filterListRoom("direct").then((rooms) => {
         console.log("Printing rooms")
         console.log(rooms.items);
@@ -54,6 +64,9 @@ export class SpaceListComponent implements OnInit {
       });
     }
     if (type == "all") {
+      this.group = false;
+      this. all = true;
+      this.direct = false;
       this.webex.listRoom().then((rooms) => {
         console.log("Printing rooms")
         console.log(rooms.items);

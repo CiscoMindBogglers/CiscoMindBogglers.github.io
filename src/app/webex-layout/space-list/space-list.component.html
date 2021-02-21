@@ -17,9 +17,9 @@
 
   <div class="space-list">
     <div class="filter">
-      <span (click)="this.updatespacelist('all')">All</span> | <span
-        (click)="this.updatespacelist('group')">Spaces</span> | <span
-        (click)="this.updatespacelist('direct')">Direct</span>
+      <span (click)="this.updatespacelist('all')" [ngClass]="all ? 'filter-active' : ''">All</span> | <span
+        (click)="this.updatespacelist('group')" [ngClass]="group ? 'filter-active' : ''">Spaces</span> | <span
+        (click)="this.updatespacelist('direct')" [ngClass]="direct ? 'filter-active' : ''">Direct</span>
     </div>
     <div class="card-list">
       <div *ngFor="let a of roomsList; let index = index">
