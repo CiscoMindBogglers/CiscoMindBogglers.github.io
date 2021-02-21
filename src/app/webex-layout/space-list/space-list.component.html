@@ -24,7 +24,8 @@
       <div *ngFor="let a of roomsList; let index = index">
         <div class="card shadow-sm profile-card"
           [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
-          <div class="space-list-item space-name">{{roomsList[index].title}}</div>
+            <span class="circle-profile">{{ this.webex.getUserInitial(roomsList[index].title) }}
+            </span><span class="space-list-item space-name">{{roomsList[index].title}}</span>
         </div>
       </div>
     </div>
@@ -54,7 +55,6 @@
     </div>
     <div class="modal-body">
       <div class="md-form mb-5">
-
         <input type="text" id="roomName" class="form-control" mdbInput mdbValidate>
         <label for="roomName">Space Name</label>
       </div>

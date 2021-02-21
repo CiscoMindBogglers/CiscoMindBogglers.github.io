@@ -26,7 +26,6 @@ export class SpaceDetailsComponent implements OnInit {
   constructor(private webex: WebexService, private route: ActivatedRoute,private router:Router,private emailService:emailService) { }
 
   ngOnInit(): void {
-    this.webex.onInit();
     this.webex.listenForMsgEvents();
     this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'msgCreated') {

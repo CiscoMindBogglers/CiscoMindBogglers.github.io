@@ -33,7 +33,7 @@
               </div>
             </div>
             <div *ngIf="type=='direct'" class="d-flex"  [ngClass]="{'flex-row-reverse': direction(index)=='right'}">
-              <div class="md-avatar md-avatar--44 chat-avatar" title="map.get(messages[index].personId)" style="margin-top: 5px">
+              <div class="md-avatar md-avatar--44 chat-avatar" title="{{map.get(messages[index].personId)}}" style="margin-top: 5px">
                 <span class="md-avatar__letter">{{ this.getInitial(map.get(messages[index].personId)) }}
                 </span>
               </div>
