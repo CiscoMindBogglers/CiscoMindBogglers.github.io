@@ -1,30 +1,46 @@
 <div class="sidenav">
   <div class="profile-info">
-      <div class="md-avatar md-avatar--active md-avatar--32" title="{{this.displayName}}">
-          <span class="md-avatar__letter">{{this.intial}}</span>
-      </div>
-      <div>
-          <span class="my-name">{{this.displayName}}</span>
-          <span class="logout"><a>Logout</a></span>
-      </div>
+    <div class="md-avatar md-avatar--active md-avatar--32" title="{{this.displayName}}">
+      <span class="md-avatar__letter">{{this.intial}}</span>
+    </div>
+    <div>
+      <span class="my-name">{{this.displayName}}</span>
+      <span class="logout" (click)="this.logout()"><a>Logout</a></span>
+    </div>
   </div>
 
   <div class="search-add-bar">
-      <ng-select2 class="space-search" width="80%" [placeholder]="'Search'">
-      </ng-select2><span  class="shadow-sm create-space">+</span>
+    <!-- <ng-select2 class="space-search" width="80%" [placeholder]="'Search'"></ng-select2> -->
+    <input placeholder="Search" class="space-search" (keyup)="search($event)">
+    <span class="shadow-sm create-space">+</span>
   </div>
 
   <div class="space-list">
+    <div class="filter">
+      <span (click)="this.updatespacelist('all')">All</span> | <span
+        (click)="this.updatespacelist('group')">Spaces</span> | <span
+        (click)="this.updatespacelist('direct')">Direct</span>
+    </div>
+    <div class="card-list">
       <div *ngFor="let a of roomsList; let index = index">
-          <div class="card shadow-sm profile-card"  [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
-              <div class="space-list-item space-name">{{roomsList[index].title}}</div>
-          </div>
+        <div class="card shadow-sm profile-card" [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
+          <div class="space-list-item space-name">{{roomsList[index].title}}</div>
+        </div>
       </div>
+    </div>
   </div>
   <div class="space-nav row">
-    <span class="col-md-3 bottom-icon-align-center"><fa-icon [icon]="faPhoneAlt"></fa-icon></span>
-    <span class="col-md-3 bottom-icon-align-center"><fa-icon [icon]="faCalendar"></fa-icon></span>
-    <span class="col-md-3 bottom-icon-align-center"><fa-icon [icon]="faBullhorn"></fa-icon></span>
-    <span class="col-md-3 bottom-icon-align-center bottom-icon-end"><fa-icon [icon]="faStickyNote"></fa-icon></span>
-    </div>
+    <span class="col-md-3 bottom-icon-align-center">
+      <fa-icon [icon]="faPhoneAlt"></fa-icon>
+    </span>
+    <span class="col-md-3 bottom-icon-align-center">
+      <fa-icon [icon]="faCalendar"></fa-icon>
+    </span>
+    <span class="col-md-3 bottom-icon-align-center">
+      <fa-icon [icon]="faBullhorn"></fa-icon>
+    </span>
+    <span class="col-md-3 bottom-icon-align-center bottom-icon-end">
+      <fa-icon [icon]="faStickyNote"></fa-icon>
+    </span>
+  </div>
 </div>
