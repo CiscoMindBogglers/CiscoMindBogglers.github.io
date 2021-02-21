@@ -11,6 +11,8 @@ import { SpaceDetailsComponent } from './webex-layout/space-details/space-detail
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelect2Module } from 'ng-select2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BroadcastComponent } from './webex-layout/broadcast/broadcast.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AuthComponent,
     SpaceListComponent,
     WebexLayoutComponent,
-    SpaceDetailsComponent
+    SpaceDetailsComponent,
+    BroadcastComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -14,7 +14,8 @@ export class WebexService {
   currentMeeting: any;
   subject: Subject<any> = new Subject();
   MemberShipsubject :Subject<any> = new Subject();
-  constructor(public router: Router) {}
+
+  constructor(public router: Router) { }
 
   async listenForWebex() {
     this.webex.once(`ready`, () => {
@@ -53,8 +54,7 @@ export class WebexService {
   }
   isAuthorized(): boolean {
     this.onInit();
-    if (
-      this.webex.canAuthorize ||
+    if (this.webex.canAuthorize ||
       this.webex.credentials.supertoken ||
       localStorage.getItem('webex_token')
     ) {
@@ -269,5 +269,9 @@ export class WebexService {
       return this.currentMeeting.id;
     }
     return 'No Meeting';
+  }
+  replaceURLWithHTMLLinks (text) {
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+    return text.replace(exp, "<a href='$1'>$1</a>");
   }
 }
