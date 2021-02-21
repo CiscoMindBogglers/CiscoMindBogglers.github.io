@@ -33,6 +33,8 @@
 .message-body {
   height: 77vh;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .send-message {
   height: 10vh;
