@@ -105,7 +105,10 @@ export class WebexService {
   }
 
   async listRoom(limit: number = 1000) {
-    return this.webex.rooms.list({ max: limit });
+    return this.webex.rooms.list({ max: limit, sortBy:"lastactivity"});
+  }
+  async filterListRoom(type) {
+    return this.webex.rooms.list({ max: 1000, sortBy:"lastactivity",type:type});
   }
 
   async createRoom(name: string) {
