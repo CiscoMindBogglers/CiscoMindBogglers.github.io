@@ -37,7 +37,6 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
-    this.webex.onInit();
     this.webex.listenForMsgEvents();
    this.roomSubs= this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'msgCreated') {

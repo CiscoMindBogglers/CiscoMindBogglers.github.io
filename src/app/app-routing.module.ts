@@ -16,19 +16,17 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent
   },
-
   {
     path: 'webex',
     component: WebexLayoutComponent,
-    children:[{
+    children: [{
       path: 'broadcast',
       component: BroadcastComponent,
-    },{
+    }, {
       path: ':name/:type/:id',
       component: SpaceDetailsComponent,
-    },]
+    }]
   }
-
 ];
 
 @NgModule({
