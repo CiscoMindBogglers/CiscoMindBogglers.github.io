@@ -1,0 +1,32 @@
+<div class="d-flex  main-content justify-content-center ">
+
+
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <br />
+    <br/>
+  <button class="md-button md-button--blue" type="submit" [disabled]="!f.valid">
+    Join Meeting
+  </button>
+
+
+  </form>
+  <div *ngIf="this.spinnerVisible">
+    <i class="md-spinner md-spinner--36 md-spinner--black"></i>
+  </div>
+  <div class="display">
+    <video class="width justify-content-center " #selfView [muted]="true" autoplay></video>
+    <div class="width justify-content-center">
+      <audio #remoteViewAudio autoplay></audio>
+      <video #remoteViewVideo autoplay></video>
+    </div>
+  </div>
+
+  <button
+  class="md-button md-button--red"
+    type="button"
+    (click)="onHangup()"
+    *ngIf="this.cancel"
+  >
+   cancel
+  </button>
+</div>
