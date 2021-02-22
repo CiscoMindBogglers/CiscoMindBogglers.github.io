@@ -8,7 +8,8 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { emailService } from '../emailId.service';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-
+import { FormControl } from '@angular/forms';
+import { FormArray, FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-space-list',
@@ -31,6 +32,7 @@ export class SpaceListComponent implements OnInit,OnDestroy {
   modalOptions:NgbModalOptions;
   closeResult: string;
   membershipSubs: Subscription;
+  addSpaceForm: FormGroup;
 
 
   constructor(private webex: WebexService, public router: Router, private modalService: NgbModal,private email:emailService) {
@@ -107,14 +109,56 @@ export class SpaceListComponent implements OnInit,OnDestroy {
     }
   }
 
-  openModal(content) {
-    debugger;
-    this.modalService.open(content, this.modalOptions).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  get controls() {
+    return (this.addSpaceForm.get('memberMailID') as FormArray).controls;
   }
+  onAddMember() {
+    const control = new FormControl(null);
+    (this.addSpaceForm.get('memberMailID') as FormArray).push(control);
+  }
+  onDeleteMember(index: number) {
+    (this.addSpaceForm.get('memberMailID') as FormArray).removeAt(index);
+  }
+
+  onSubmitSpace(){
+      debugger;
+      var value = (<HTMLInputElement>document.getElementById("spaceName")).value;
+        this.webex.createRoom(value).then((room) => {
+          if(room){
+            this.addSpaceForm.value.memberMailID.forEach((element) => {
+              if (element != null) {
+                this.modalService.dismissAll()
+                this.webex.addPeople(element, room.id).then((participants) => {
+                  this.modalService.dismissAll();
+                  this.updatespacelist('all');
+                })
+                .catch((error) => {
+                  alert("Participant has not been successfully added. Please contact administrator");
+                  console.error(error);
+                });
+              }
+            });
+          }       
+        })
+        .catch((error) => {
+          alert("Space not successfully created. Please contact administrator");
+          console.error(error);
+        });
+
+  }
+  openModal(content) {
+    this.addSpaceForm = new FormGroup({
+      memberMailID: new FormArray([]),
+    });
+    this.onAddMember();
+    this.modalService.open(content, this.modalOptions).result.then(
+      result => {
+      },
+      reason => {
+      }
+    );
+  }
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
