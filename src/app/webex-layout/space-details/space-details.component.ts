@@ -24,7 +24,8 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
   messages;
   type;
   messageInitialList = [];
-  map
+  map;
+  members=[];
   currentUserEmail: string = '';
   @ViewChild('f', { static: true }) form: NgForm;
   roomSubs: Subscription;
@@ -87,7 +88,7 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
   exitRoom() {
     this.webex.removePeople(this.currentUserEmail, this.roomID).then(() => {
       console.log("exited space")
-      // this.router.navigate(["/webex"]);
+      this.router.navigate(["/webex/start"]);
     })
   }
   onSubmit(form: NgForm) {
@@ -132,7 +133,12 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
   onSubmitPartcipants() {
     this.onAddUser(this.addParticipantsForm.value.memberMailID)
   }
+
   openModal(content) {
+    this.webex.listPeople(this.roomID).then((memberships)=>{
+      this.members= memberships.items;
+      console.log( this.members)
+    })
     this.addParticipantsForm = new FormGroup({
       memberMailID: new FormArray([]),
     });
