@@ -3,9 +3,11 @@
         <h3>Notes</h3>
     </div>
     <div class="container">
-        <div class="notes"> 
-            <div class="col-md-3 card">
-                <div class="card-body"></div>
+        <div class="notes">
+            <div *ngFor="let a of this.noteMsgs; let index = index">
+                <div class="col-md-3 card">
+                    <div class="card-body">{{a}</div>
+                </div>
             </div>
         </div>
     </div>
