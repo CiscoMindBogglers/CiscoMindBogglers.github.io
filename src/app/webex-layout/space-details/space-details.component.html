@@ -24,11 +24,11 @@
             [formControlName]="i"
           />
           <button
-            class="md-button md-button--red md-button--circle md-button--small"
-            (click)="onDeleteMember(i)"
-          >
-            X
-          </button>
+              class="cross-button"
+              (click)="onDeleteMember(i)"
+            >
+            ×
+            </button>
         </div>
         <a (click)="onAddMember()"> + Add another Member</a>
       </div>
@@ -39,6 +39,8 @@
       [disabled]="!this.addParticipantsForm.valid"
       class="md-button md-button--blue"
       type="submit"
+      style="background-color: #7f55ae;
+        color:white;"
       (click)='onSubmitPartcipants()'
     >
       Add
