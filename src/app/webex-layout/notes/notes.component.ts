@@ -20,8 +20,7 @@ export class NotesComponent implements OnInit {
           isNote=true;
         }
       });
-      debugger;
-      if(isNote){
+      if(!isNote){
         this.webex.createRoom("NoteToSelf").then((room) => {
           console.log("Notespace created");
             })
