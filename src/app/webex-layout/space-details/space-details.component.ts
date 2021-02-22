@@ -5,14 +5,17 @@ import { WebexService } from 'src/app/webex.service';
 import { emailService } from '../emailId.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
+import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-space-details',
   templateUrl: './space-details.component.html',
   styleUrls: ['./space-details.component.scss'],
 })
-export class SpaceDetailsComponent implements OnInit,OnDestroy {
+export class SpaceDetailsComponent implements OnInit, OnDestroy {
   email = '';
   roomID = '';
   message = '';
@@ -22,23 +25,23 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
   type;
   messageInitialList = [];
   map
-  currentUserEmail:string='';
+  currentUserEmail: string = '';
   @ViewChild('f', { static: true }) form: NgForm;
   roomSubs: Subscription;
   addParticipantsForm: FormGroup;
-  modalOptions:NgbModalOptions;
+  modalOptions: NgbModalOptions;
 
-  constructor(private webex: WebexService, private route: ActivatedRoute,private router:Router,private emailService:emailService,private modalService: NgbModal) {
+  constructor(private webex: WebexService, private route: ActivatedRoute, private router: Router, private emailService: emailService, private modalService: NgbModal) {
     this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop',
+      backdrop: 'static',
+      backdropClass: 'customBackdrop',
       windowClass: 'fade in'
     }
   }
 
   ngOnInit(): void {
     this.webex.listenForMsgEvents();
-   this.roomSubs= this.webex.subject.subscribe(({ webexEvent, event }) => {
+    this.roomSubs = this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'msgCreated') {
         if (event.data.roomId == this.roomID) {
           this.messages.push(event.data)
@@ -46,8 +49,8 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
       }
 
     });
-    this.emailService.emailId.pipe(take(2)).subscribe((email)=>{
-      this.currentUserEmail=email;
+    this.emailService.emailId.pipe(take(2)).subscribe((email) => {
+      this.currentUserEmail = email;
     })
     this.route.params.subscribe((params: Params) => {
       this.roomID = params['id'];
@@ -73,13 +76,13 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
 
     });
   }
-  getInitial(name){
+  getInitial(name) {
     return this.webex.getUserInitial(name)
   }
-  exitRoom(){
-    this.webex.removePeople(this.currentUserEmail,this.roomID).then(()=>{
+  exitRoom() {
+    this.webex.removePeople(this.currentUserEmail, this.roomID).then(() => {
       console.log("exited space")
-     // this.router.navigate(["/webex"]);
+      // this.router.navigate(["/webex"]);
     })
   }
   onSubmit(form: NgForm) {
@@ -121,7 +124,7 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
     });
     this.modalService.dismissAll()
   }
-  onSubmitPartcipants(){
+  onSubmitPartcipants() {
     this.onAddUser(this.addParticipantsForm.value.memberMailID)
   }
   openModal(content) {
@@ -136,10 +139,48 @@ export class SpaceDetailsComponent implements OnInit,OnDestroy {
       }
     );
   }
+  getAttachment(file) {
+    if (file) {
+      console.log(file);
+      $.ajax({
+        url: file,
+        type: 'GET',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("webex_token"));
+        },
+        data: {},
+        success: function (data, textStatus, request) {
+          console.log(data)
+          var filename = "attachment";
+          var disposition = request.getResponseHeader('Content-Disposition');
+          if (disposition && disposition.indexOf('attachment') !== -1) {
+            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            var matches = filenameRegex.exec(disposition);
+            if (matches != null && matches[1]) { 
+              filename = matches[1].replace(/['"]/g, '');
+            }
+        }
+          var a = document.createElement("a");
+          var url = "";
+          document.body.appendChild(a);
+          var blob = new Blob([data]);
+          console.log(blob)
+          url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+         },
+        error: function () { },
+      });
 
+    } else {
+      return "";
+    }
+  }
 
-  ngOnDestroy(){
-   this.webex.listenForMsgEventsCleanup();
-   this.roomSubs.unsubscribe();
+  ngOnDestroy() {
+    this.webex.listenForMsgEventsCleanup();
+    this.roomSubs.unsubscribe();
   }
 }

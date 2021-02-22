@@ -245,6 +245,7 @@ export class WebexService {
       console.log(error);
     }
   }
+
   async onUnregister() {
     try {
       await this.webex.meetings.unregister();
