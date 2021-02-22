@@ -51,24 +51,60 @@
   <div calss="modal fade in">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Create Space</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button
+        type="button"
+        class="close cross-button"
+        id="close"
+        aria-label="Close"
+        style="outline:none"
+        (click)="modal.dismiss('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <div class="md-form mb-5">
-        <input type="text" id="roomName" class="form-control" mdbInput mdbValidate>
-        <label for="roomName">Space Name</label>
-      </div>
+      <form [formGroup]="addSpaceForm" >
+            <input
+              type="text"
+              class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
+              placeholder="Enter Space name"
 
-      <div class="md-form mb-4">
-        <input type="email" id="personMail" class="form-control" mdbInput mdbValidate>
-        <label for="personMail">Email ID</label>
-      </div>
+              id="spaceName"
+            />
+          
+  
+        <div formArrayName="memberMailID">
+          <div
+            class="form-group"
+            *ngFor="let memberControl of controls; let i = index"
+          >
+            <input
+              type="text"
+              class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
+              placeholder="Email Id"
+              [formControlName]="i"
+            />
+            <button
+              class="cross-button"
+              (click)="onDeleteMember(i)"
+            >
+              x
+            </button>
+          </div>
+          <a (click)="onAddMember()"> + Add another Member</a>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
-      <button type="button" mdbBtn color="blue" rounded="true" data-toggle="modal" data-target="#basicExample"
-        (click)="createSpace()" mdbWavesEffect>Create Space
+      <button
+        [disabled]="!this.addSpaceForm.valid"
+        class="md-button"
+        id="addSpaceBtn"
+        style="background-color: #657eee;"
+        type="submit"
+        (click)='onSubmitSpace()'
+      >
+        Create
       </button>
     </div>
   </div>

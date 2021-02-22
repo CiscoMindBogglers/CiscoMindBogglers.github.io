@@ -82,6 +82,9 @@ export class WebexService {
       config: {
         meetings: {
           deviceType: 'WEB',
+          reconnection: {
+            enabled: true
+          }
         },
       },
       credentials: {

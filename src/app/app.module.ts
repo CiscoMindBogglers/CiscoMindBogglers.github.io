@@ -16,6 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NotesComponent } from './webex-layout/notes/notes.component';
 import { MeetingComponent } from './webex-layout/meeting/meeting.component';
 import { CalendarComponent } from './webex-layout/calendar/calendar.component';
+import { SinglePartyCallComponent } from './webex-layout/single-party-call/single-party-call.component';
 import { StartComponent } from './webex-layout/start/start.component';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { StartComponent } from './webex-layout/start/start.component';
     NotesComponent,
     MeetingComponent,
     CalendarComponent,
+    SinglePartyCallComponent,
     StartComponent
   ],
   imports: [
