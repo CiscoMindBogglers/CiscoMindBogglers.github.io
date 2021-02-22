@@ -17,11 +17,19 @@ export class NotesComponent implements OnInit {
       var isNote=false;
       rooms.items.forEach(element => {
         if(element.title==="NoteToSelf"){
+          localStorage.setItem(
+            'note_room_id',
+            element.id
+          );
           isNote=true;
         }
       });
       if(!isNote){
         this.webex.createRoom("NoteToSelf").then((room) => {
+          localStorage.setItem(
+            'note_room_id',
+            room.id
+          );
           console.log("Notespace created");
             })
             .catch((error) => {
@@ -31,6 +39,15 @@ export class NotesComponent implements OnInit {
           }       
         
       });
+  }
+
+  getNoteMessages(){
+        this.webex.listMessages(localStorage.getItem('note_room_id')).then((messageDetails) => {
+          console.log("Note message details"+messageDetails);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
   }
 
 }

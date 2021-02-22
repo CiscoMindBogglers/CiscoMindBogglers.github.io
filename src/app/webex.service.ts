@@ -74,6 +74,7 @@ export class WebexService {
         console.log('Cannot logout when no user is authenticated');
       }
       localStorage.removeItem('webex_token');
+      localStorage.removeItem('note_room_id');
     }
   }
 
