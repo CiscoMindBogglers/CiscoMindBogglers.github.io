@@ -101,7 +101,7 @@ export class WebexService {
       initial = name
         .split(' ')
         .map((n) => n[0])
-        .join('');
+        .join('').substring(0, 2);;
     } catch (e) {
       if (name != undefined) {
         initial = name.charAt(0);
