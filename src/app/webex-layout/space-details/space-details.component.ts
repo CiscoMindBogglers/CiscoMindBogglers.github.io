@@ -150,9 +150,10 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
         },
         data: {},
         success: function (data, textStatus, request) {
-          console.log(data)
           var filename = "attachment";
-          var disposition = request.getResponseHeader('Content-Disposition');
+          console.log(textStatus);
+          var disposition = request.getResponseHeader();
+          console.log(disposition)
           if (disposition && disposition.indexOf('attachment') !== -1) {
             var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
             var matches = filenameRegex.exec(disposition);
