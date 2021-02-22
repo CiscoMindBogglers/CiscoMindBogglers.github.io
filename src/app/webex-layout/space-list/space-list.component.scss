@@ -96,7 +96,7 @@
     float: right;
     cursor: pointer;
 }
-.profile-info > div > .logout > a:hover {
+.logout:hover {
     color: #7f55ae !important;
 }
 .space-search { 
@@ -109,7 +109,7 @@
 .create-space {
     cursor: pointer;
     border-radius: 50%;
-    background-color: #657eee;
+    background-color: #7f55ae; 
     color: #fff;
     border: none;
     text-align: center;
@@ -123,7 +123,7 @@
     margin-left: 5px;
 }
 .create-space:hover {
-    background-color: #7f55ae;
+    background-color: #657eee;
 }
 .search-add-bar{
     padding-top: 10px;
