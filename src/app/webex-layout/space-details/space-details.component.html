@@ -90,7 +90,7 @@
                   <span>{{ messages[index].created | date: "short" }}</span>
                 </p>
                 <li class="him">
-                  <img src='{{messages[index].files}}'>
+                  <img src='{{this.getAttachment(messages[index].files)}}'>
                   {{ messages[index].text }}
                 </li>
               </div>
@@ -108,6 +108,7 @@
                   <span>{{ messages[index].created | date: "short" }}</span>
                 </p>
                 <li class="him">
+                  <img src='{{this.getAttachment(messages[index].files)}}'>
                   {{ messages[index].text }}
                 </li>
               </div>
