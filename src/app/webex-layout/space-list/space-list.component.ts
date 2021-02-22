@@ -149,7 +149,7 @@ export class SpaceListComponent implements OnInit,OnDestroy {
                 });
               }
             });
-          }       
+          }
         })
         .catch((error) => {
           alert("Space not successfully created. Please contact administrator");
@@ -178,7 +178,7 @@ export class SpaceListComponent implements OnInit,OnDestroy {
       this.webex.sendOneToOneMessage(req).then((messageDetail) => {
         console.log(messageDetail);
         this.modalService.dismissAll();
-        this.updatespacelist('direct');         
+        this.updatespacelist('direct');
       })
       .catch((error) => {
         alert("Message has not been sent. Please contact administrator");

@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add Participants</h4>
+    <h4 class="modal-title" id="modal-basic-title">Participants</h4>
     <button
       type="button"
       class="close"
@@ -11,6 +11,33 @@
     </button>
   </div>
   <div class="modal-body">
+    <!-- <div *ngFor="let ar of members; let i = index ">
+      <p>{{members[i].email}}</p>
+    </div> -->
+    <div *ngFor="let ar of members; let i = index " class="d-flex">
+      <div
+        class="md-avatar md-avatar--44 chat-avatar"
+        title="map.get(messages[i].personId)"
+        style="margin-top: 5px"
+      >
+        <span class="md-avatar__letter"
+          >{{ this.getInitial(members[i].personDisplayName) }}
+        </span>
+      </div>
+      <div style="margin: 5px; display: grid">
+        <p style="margin-bottom: 0px; font-size: 10px">
+          <span style="margin-right: 5px">{{
+            members[i].personEmail
+          }}</span>
+
+        </p>
+        <p >
+          {{members[i].personDisplayName}}
+        </p>
+      </div>
+    </div>
+    <hr>
+    <h5 style="text-align: center;">Add People to this Space</h5>
     <form [formGroup]="addParticipantsForm" >
       <div formArrayName="memberMailID">
         <div
@@ -68,6 +95,7 @@
       <a *ngIf="type == 'group'" (click)="exitRoom()"
         ><i class="icon icon-exit-room_24"></i
       ></a>
+
     </div>
   </div>
   <div class="message">

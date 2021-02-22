@@ -164,6 +164,10 @@ export class WebexService {
       roomId: roomid,
     });
   }
+  async listPeople(roomid: string) {
+   return this.webex.memberships.list({ roomId: roomid });
+  }
+
   async removePeople(email: string, roomid: string) {
     this.webex.memberships.list({ roomId: roomid }).then((memberships) => {
       console.log(memberships.items);
