@@ -5,6 +5,7 @@ import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import { faStickyNote} from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { emailService } from '../emailId.service';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -20,8 +21,10 @@ export class SpaceListComponent implements OnInit,OnDestroy {
   faPhoneAlt = faPhoneAlt;
   faStickyNote = faStickyNote;
   faCalendar = faCalendar;
+  faSignOutAlt = faSignOutAlt;
   displayName: string;
   firstName: string;
+  lastName: string;
   intial: string;
   roomsList: any;
 
@@ -68,6 +71,7 @@ export class SpaceListComponent implements OnInit,OnDestroy {
       this.displayName = data.displayName;
       this.intial = this.webex.getUserInitial(this.displayName );
       this.firstName = this.webex.getFirstName(this.displayName );
+      this.lastName = this.webex.getLastName(this.displayName );
     });
   }
   logout(){

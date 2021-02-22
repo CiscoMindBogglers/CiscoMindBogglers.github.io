@@ -7,6 +7,7 @@ import { CalendarComponent } from './webex-layout/calendar/calendar.component';
 import { MeetingComponent } from './webex-layout/meeting/meeting.component';
 import { NotesComponent } from './webex-layout/notes/notes.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
+import { StartComponent } from './webex-layout/start/start.component';
 import { WebexLayoutComponent } from './webex-layout/webex-layout.component'
 
 const routes: Routes = [
@@ -31,10 +32,13 @@ const routes: Routes = [
     }, {
       path: 'meeting',
       component: MeetingComponent,
-    },{
+    }, {
       path: 'calendar',
       component: CalendarComponent,
-    },{
+    }, {
+      path: 'start',
+      component: StartComponent,
+    }, {
       path: ':name/:type/:id',
       component: SpaceDetailsComponent,
     }]
