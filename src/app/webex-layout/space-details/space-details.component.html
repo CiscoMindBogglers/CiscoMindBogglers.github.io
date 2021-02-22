@@ -63,6 +63,7 @@
       ></i>
      <a routerLink="/webex/call" [queryParams]='{"roomID":roomID}'><i
         class="icon icon-audio-and-video-connection_24 md-padding__right--s"
+        style="color:white"
       ></i></a>
       <a *ngIf="type == 'group'" (click)="exitRoom()"
         ><i class="icon icon-exit-room_24"></i
@@ -73,45 +74,46 @@
     <div class="card">
       <div class="card-body message-body">
         <ul style="margin-top: -10px">
-          <div *ngFor="let a of messages; let index = index">
+          <div *ngFor="let a of messages; let i = index">
             <div *ngIf="type == 'group'" class="d-flex">
               <div
                 class="md-avatar md-avatar--44 chat-avatar"
-                title="map.get(messages[index].personId)"
+                title="map.get(messages[i].personId)"
                 style="margin-top: 5px"
               >
                 <span class="md-avatar__letter"
-                  >{{ this.getInitial(map.get(messages[index].personId)) }}
+                  >{{ this.getInitial(map.get(messages[i].personId)) }}
                 </span>
               </div>
               <div style="margin: 5px; display: grid">
                 <p style="margin-bottom: 0px; font-size: 10px">
                   <span style="margin-right: 5px">{{
-                    map.get(messages[index].personId)
+                    map.get(messages[i].personId)
                   }}</span>
-                  <span>{{ messages[index].created | date: "short" }}</span>
+                  <span>{{ messages[i].created | date: "short" }}</span>
                 </p>
                 <li class="him">
-                  <img src='{{this.getAttachment(messages[index].files)}}'>
-                  {{ messages[index].text }}
+                  <div *ngFor="let a of messages[i].files; let k = index;">
+                    <span class="attachment" (click)="this.getAttachment(messages[i].files[k])" >Download attachment</span>
+                  </div>
+                   {{ messages[i].text }}
                 </li>
               </div>
             </div>
-            <div *ngIf="type=='direct'" class="d-flex"  [ngClass]="{'flex-row-reverse': direction(index)=='right'}">
-              <div class="md-avatar md-avatar--44 chat-avatar" title="{{map.get(messages[index].personId)}}" style="margin-top: 5px">
-                <span class="md-avatar__letter">{{ this.getInitial(map.get(messages[index].personId)) }}
+            <div *ngIf="type=='direct'" class="d-flex"  [ngClass]="{'flex-row-reverse': direction(i)=='right'}">
+              <div class="md-avatar md-avatar--44 chat-avatar" title="{{map.get(messages[i].personId)}}" style="margin-top: 5px">
+                <span class="md-avatar__letter">{{ this.getInitial(map.get(messages[i].personId)) }}
                 </span>
               </div>
               <div style="margin: 5px; display: grid">
                 <p style="margin-bottom: 0px; font-size: 10px">
                   <span style="margin-right: 5px">{{
-                    map.get(messages[index].personId)
+                    map.get(messages[i].personId)
                   }}</span>
-                  <span>{{ messages[index].created | date: "short" }}</span>
+                  <span>{{ messages[i].created | date: "short" }}</span>
                 </p>
                 <li class="him">
-                  <img src='{{this.getAttachment(messages[index].files)}}'>
-                  {{ messages[index].text }}
+                  {{ messages[i].text }}
                 </li>
               </div>
             </div>
