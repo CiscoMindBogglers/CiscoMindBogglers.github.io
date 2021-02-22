@@ -40,7 +40,6 @@ const routes: Routes = [
       path: 'call',
       component: SinglePartyCallComponent,
     },{
-    }, {
       path: 'start',
       component: StartComponent,
     }, {
