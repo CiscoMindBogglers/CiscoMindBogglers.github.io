@@ -82,6 +82,9 @@ export class WebexService {
       config: {
         meetings: {
           deviceType: 'WEB',
+          reconnection: {
+            enabled: true
+          }
         },
       },
       credentials: {
@@ -112,6 +115,9 @@ export class WebexService {
 
   getFirstName(name: string) {
     return name.split(' ')[0];
+  }
+  getLastName(name: string) {
+    return name.split(' ')[1] || "";
   }
 
   async fetchUserDetails(id: string) {

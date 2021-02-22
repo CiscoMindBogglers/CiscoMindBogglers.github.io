@@ -6,7 +6,9 @@ import { BroadcastComponent } from './webex-layout/broadcast/broadcast.component
 import { CalendarComponent } from './webex-layout/calendar/calendar.component';
 import { MeetingComponent } from './webex-layout/meeting/meeting.component';
 import { NotesComponent } from './webex-layout/notes/notes.component';
+import { SinglePartyCallComponent } from './webex-layout/single-party-call/single-party-call.component';
 import { SpaceDetailsComponent } from './webex-layout/space-details/space-details.component';
+import { StartComponent } from './webex-layout/start/start.component';
 import { WebexLayoutComponent } from './webex-layout/webex-layout.component'
 
 const routes: Routes = [
@@ -31,10 +33,17 @@ const routes: Routes = [
     }, {
       path: 'meeting',
       component: MeetingComponent,
-    },{
+    }, {
       path: 'calendar',
       component: CalendarComponent,
     },{
+      path: 'call',
+      component: SinglePartyCallComponent,
+    },{
+    }, {
+      path: 'start',
+      component: StartComponent,
+    }, {
       path: ':name/:type/:id',
       component: SpaceDetailsComponent,
     }]

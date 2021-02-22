@@ -4,8 +4,10 @@
       <span class="md-avatar__letter">{{this.intial}}</span>
     </div>
     <div>
-      <span class="my-name">{{this.displayName}}</span>
-      <span class="logout" (click)="this.logout()"><a>Logout</a></span>
+      <span class="my-name">{{this.firstName}}<p>{{this.lastName}}</p></span>
+      <span class="logout" >
+        <fa-icon (click)="this.logout()" [icon]="faSignOutAlt"></fa-icon>
+      </span>
     </div>
   </div>
 
