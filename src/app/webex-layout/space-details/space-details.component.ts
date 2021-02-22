@@ -44,7 +44,12 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
     this.roomSubs = this.webex.subject.subscribe(({ webexEvent, event }) => {
       if (webexEvent == 'msgCreated') {
         if (event.data.roomId == this.roomID) {
-          this.messages.push(event.data)
+          this.messages.push(event.data);
+          this.webex.fetchUserDetails(event.data.personId).then((data) => {
+            if (!this.map.has(data.id)) {
+              this.map.set(data.id, data.displayName)
+            }
+          });
         }
       }
 
@@ -157,7 +162,7 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
           if (disposition && disposition.indexOf('attachment') !== -1) {
             var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
             var matches = filenameRegex.exec(disposition);
-            if (matches != null && matches[1]) { 
+            if (matches != null && matches[1]) {
               filename = matches[1].replace(/['"]/g, '');
             }
         }
