@@ -8,6 +8,9 @@
     background-color:#f9fbfc;
     overflow: hidden;
     padding-top: 9px;
+    border-right: solid;
+    border-width: 1px;
+    border-color: #a2a2a2;
 }
 .sidenav hr {
     margin-top: 0.5rem;
@@ -161,8 +164,7 @@
     position: fixed;
     min-width: 250px;
     max-width: 250px;
-    min-height: 5vh;
-    max-height: 5vh;
+    line-height: 25px;
 }
 .profile-card:hover {
     background-color: #653f91;
