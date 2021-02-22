@@ -57,6 +57,8 @@
     border-bottom-style: solid;
     border-width: 1px;
     border-color: #b5b5b5;
+    max-height: 78vh;
+    min-height: 78vh;
 }
 .profile-card{
     display: inline-block;
@@ -157,7 +159,10 @@
     margin-left: 0px;
     margin-right: 0px;
     position: fixed;
-    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 5vh;
+    max-height: 5vh;
 }
 .profile-card:hover {
     background-color: #653f91;
@@ -184,8 +189,8 @@
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
-    min-height: 74vh;
-    max-height: 74vh;
+    min-height: 76vh;
+    max-height: 76vh;
 }
 .filter-active {
     font-weight: bold;
