@@ -246,10 +246,6 @@ export class WebexService {
     }
   }
 
-  async getAttachemnt(file){
-
-  }
-
   async onUnregister() {
     try {
       await this.webex.meetings.unregister();

@@ -7,6 +7,9 @@ import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
+import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-space-details',
   templateUrl: './space-details.component.html',
@@ -138,7 +141,39 @@ export class SpaceDetailsComponent implements OnInit, OnDestroy {
   }
   getAttachment(file) {
     if (file) {
-      return this.webex.getAttachemnt(file)
+      console.log(file);
+      $.ajax({
+        url: file,
+        type: 'GET',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("webex_token"));
+        },
+        data: {},
+        success: function (data, textStatus, request) {
+          console.log(data)
+          var filename = "attachment";
+          var disposition = request.getResponseHeader('Content-Disposition');
+          if (disposition && disposition.indexOf('attachment') !== -1) {
+            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            var matches = filenameRegex.exec(disposition);
+            if (matches != null && matches[1]) { 
+              filename = matches[1].replace(/['"]/g, '');
+            }
+        }
+          var a = document.createElement("a");
+          var url = "";
+          document.body.appendChild(a);
+          var blob = new Blob([data]);
+          console.log(blob)
+          url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+         },
+        error: function () { },
+      });
+
     } else {
       return "";
     }

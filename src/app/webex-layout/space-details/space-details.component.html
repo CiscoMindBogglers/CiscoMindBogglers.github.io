@@ -90,8 +90,10 @@
                   <span>{{ messages[index].created | date: "short" }}</span>
                 </p>
                 <li class="him">
-                  <img src='{{this.getAttachment(messages[index].files)}}'>
-                  {{ messages[index].text }}
+                  <div *ngFor="let a of messages[index].files; let j = index">
+                    <span class="attachment" (click)="this.getAttachment(messages[index].files[j])" >Download attachment</span>
+                  </div>
+                   {{ messages[index].text }}
                 </li>
               </div>
             </div>
