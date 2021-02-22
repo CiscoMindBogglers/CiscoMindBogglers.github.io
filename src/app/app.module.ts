@@ -17,6 +17,7 @@ import { NotesComponent } from './webex-layout/notes/notes.component';
 import { MeetingComponent } from './webex-layout/meeting/meeting.component';
 import { CalendarComponent } from './webex-layout/calendar/calendar.component';
 import { SinglePartyCallComponent } from './webex-layout/single-party-call/single-party-call.component';
+import { StartComponent } from './webex-layout/start/start.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SinglePartyCallComponent } from './webex-layout/single-party-call/singl
     NotesComponent,
     MeetingComponent,
     CalendarComponent,
-    SinglePartyCallComponent
+    SinglePartyCallComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,

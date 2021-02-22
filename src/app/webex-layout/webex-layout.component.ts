@@ -14,6 +14,6 @@ export class WebexLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.webex.onInit();
+    this.router.navigateByUrl("/webex/start");
   }
-
 }

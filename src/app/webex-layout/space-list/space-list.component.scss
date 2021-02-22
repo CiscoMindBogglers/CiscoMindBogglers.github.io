@@ -77,13 +77,24 @@
     display: inline-flex;
     color: #1f1f1f;
 }
-.profile-info > div > .my-name {
+.my-name {
     padding-left: 15px;
+    float: left;
+    font-weight: bold;
+    min-width: 165px;
+    max-width: 165px;
+    max-height: 50px;
+    min-height: 50px;
 }
-.profile-info > div > .logout > a {
-    padding-left: 15px;
+.my-name > p {
+    font-size:10px;
+}
+.logout {
     font-size: 15px;
-    margin-top: -10px;
+    margin-top: 10px;
+    margin-right: 0;
+    float: right;
+    cursor: pointer;
 }
 .profile-info > div > .logout > a:hover {
     color: #7f55ae !important;
