@@ -5,7 +5,7 @@
     </div>
     <div>
       <span class="my-name">{{this.firstName}}<p>{{this.lastName}}</p></span>
-      <span class="logout" >
+      <span class="logout">
         <fa-icon (click)="this.logout()" [icon]="faSignOutAlt"></fa-icon>
       </span>
     </div>
@@ -21,13 +21,14 @@
       <span (click)="this.updatespacelist('all')" [ngClass]="all ? 'filter-active' : ''">All</span> | <span
         (click)="this.updatespacelist('group')" [ngClass]="group ? 'filter-active' : ''">Spaces</span> | <span
         (click)="this.updatespacelist('direct')" [ngClass]="direct ? 'filter-active' : ''">Direct</span>
+      <span (click)="openChatModal(chatTemplate)">Start Chat</span>
     </div>
     <div class="card-list">
       <div *ngFor="let a of roomsList; let index = index">
         <div class="card shadow-sm profile-card"
           [routerLink]="['/webex',roomsList[index].title,roomsList[index].type,roomsList[index].id]">
-            <span class="circle-profile">{{ this.webex.getUserInitial(roomsList[index].title) }}
-            </span><span class="space-list-item space-name">{{roomsList[index].title}}</span>
+          <span class="circle-profile">{{ this.webex.getUserInitial(roomsList[index].title) }}
+          </span><span class="space-list-item space-name">{{roomsList[index].title}}</span>
         </div>
       </div>
     </div>
@@ -42,7 +43,7 @@
     <span routerLink="/webex/broadcast" class="col-md-3 bottom-icon-align-center">
       <fa-icon [icon]="faBullhorn"></fa-icon>
     </span>
-    <span routerLink="/webex/notes"  class="col-md-3 bottom-icon-align-center bottom-icon-end">
+    <span routerLink="/webex/notes" class="col-md-3 bottom-icon-align-center bottom-icon-end">
       <fa-icon [icon]="faStickyNote"></fa-icon>
     </span>
   </div>
@@ -51,44 +52,23 @@
   <div calss="modal fade in">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Create Space</h4>
-      <button
-        type="button"
-        class="close cross-button"
-        id="close"
-        aria-label="Close"
-        style="outline:none"
-        (click)="modal.dismiss('Cross click')"
-      >
+      <button type="button" class="close cross-button" id="close" aria-label="Close" style="outline:none"
+        (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="addSpaceForm" >
-            <input
-              type="text"
-              class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
-              placeholder="Enter Space name"
+      <form [formGroup]="addSpaceForm">
+        <input type="text" class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
+          placeholder="Enter Space name" id="spaceName" />
 
-              id="spaceName"
-            />
-          
-  
+
         <div formArrayName="memberMailID">
-          <div
-            class="form-group"
-            *ngFor="let memberControl of controls; let i = index"
-          >
-            <input
-              type="text"
-              class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
-              placeholder="Email Id"
-              [formControlName]="i"
-            />
-            <button
-              class="cross-button"
-              (click)="onDeleteMember(i)"
-            >
-            ×
+          <div class="form-group" *ngFor="let memberControl of controls; let i = index">
+            <input type="text" class="md-input medium-10 md-margin__vertical--s md-margin__right--s"
+              placeholder="Email Id" [formControlName]="i" />
+            <button class="cross-button" (click)="onDeleteMember(i)">
+              ×
             </button>
           </div>
           <a (click)="onAddMember()"> + Add another Member</a>
@@ -96,16 +76,35 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button
-        [disabled]="!this.addSpaceForm.valid"
-        class="md-button"
-        id="addSpaceBtn"
-        style="background-color: #7f55ae;
-        color:white;"
-        type="submit"
-        (click)='onSubmitSpace()'
-      >
+      <button [disabled]="!this.addSpaceForm.valid" class="md-button" id="addSpaceBtn" style="background-color: #7f55ae;
+        color:white;" type="submit" (click)='onSubmitSpace()'>
         Create
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #chatTemplate let-modal>
+  <div calss="modal fade in">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Start Chat</h4>
+      <button type="button" class="close cross-button" id="close" aria-label="Close" style="outline:none"
+        (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="md-input medium-10 md-margin__vertical--s md-margin__right--s" placeholder="Email Id"
+        [(ngModel)]="personMail" />
+      <div class="form-outline">
+        <textarea class="form-control" id="textAreaExample" placeholder="Message" rows="4"
+          [(ngModel)]="message"></textarea>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="md-button" style="background-color: #7f55ae;
+        color:white;" type="submit" (click)='createOneToOneChat()'>
+        Send
       </button>
     </div>
   </div>

@@ -36,6 +36,8 @@ export class SpaceListComponent implements OnInit,OnDestroy {
   closeResult: string;
   membershipSubs: Subscription;
   addSpaceForm: FormGroup;
+  personMail:any;
+  message:any;
 
 
   constructor(private webex: WebexService, public router: Router, private modalService: NgbModal,private email:emailService) {
@@ -155,6 +157,32 @@ export class SpaceListComponent implements OnInit,OnDestroy {
       memberMailID: new FormArray([]),
     });
     this.onAddMember();
+    this.modalService.open(content, this.modalOptions).result.then(
+      result => {
+      },
+      reason => {
+      }
+    );
+  }
+
+  createOneToOneChat(){
+    debugger;
+    var req={
+      toPersonEmail: this.personMail,
+      text: this.message
+    }
+      this.webex.sendOneToOneMessage(req).then((messageDetail) => {
+        console.log(messageDetail);
+        this.modalService.dismissAll();
+        this.updatespacelist('direct');         
+      })
+      .catch((error) => {
+        alert("Message has not been sent. Please contact administrator");
+        console.error(error);
+      });
+  }
+
+  openChatModal(content){
     this.modalService.open(content, this.modalOptions).result.then(
       result => {
       },

@@ -109,7 +109,7 @@
 .create-space {
     cursor: pointer;
     border-radius: 50%;
-    background-color: #657eee;
+    background-color: #7f55ae;
     color: #fff;
     border: none;
     text-align: center;
@@ -202,4 +202,16 @@
 }
 .md-button:hover {
     background-color: #7f55ae;
+}
+.one-to-one {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #7f55ae;
+    color: #fff;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin-left: 5px;
 }
