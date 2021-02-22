@@ -16,6 +16,10 @@ echo "🏋️ Building website..."
 npm run-script prod-build
 echo "npm build done"
 
+echo "🏋️ Deploying to firebase website..."
+npm run-script deploy
+echo "npm build done"
+
 cd dist/webexteamsapp
 
 echo "☁️ Publishing website"

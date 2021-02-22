@@ -6,6 +6,7 @@ import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import { faStickyNote} from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import { emailService } from '../emailId.service';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -23,6 +24,7 @@ export class SpaceListComponent implements OnInit,OnDestroy {
   faStickyNote = faStickyNote;
   faCalendar = faCalendar;
   faSignOutAlt = faSignOutAlt;
+  faCommentAlt = faCommentAlt;
   displayName: string;
   firstName: string;
   lastName: string;
@@ -127,10 +129,13 @@ export class SpaceListComponent implements OnInit,OnDestroy {
   }
 
   onSubmitSpace(){
-      debugger;
       var value = (<HTMLInputElement>document.getElementById("spaceName")).value;
         this.webex.createRoom(value).then((room) => {
           if(room){
+            if(this.addSpaceForm.value.memberMailID[0 ]=== null){
+              this.modalService.dismissAll();
+              this.updatespacelist('all');
+            }
             this.addSpaceForm.value.memberMailID.forEach((element) => {
               if (element != null) {
                 this.modalService.dismissAll()
@@ -166,7 +171,6 @@ export class SpaceListComponent implements OnInit,OnDestroy {
   }
 
   createOneToOneChat(){
-    debugger;
     var req={
       toPersonEmail: this.personMail,
       text: this.message

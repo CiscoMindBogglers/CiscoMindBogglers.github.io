@@ -18,6 +18,9 @@ import { MeetingComponent } from './webex-layout/meeting/meeting.component';
 import { CalendarComponent } from './webex-layout/calendar/calendar.component';
 import { SinglePartyCallComponent } from './webex-layout/single-party-call/single-party-call.component';
 import { StartComponent } from './webex-layout/start/start.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import { StartComponent } from './webex-layout/start/start.component';
     FormsModule,
     NgbModule,
     NgSelect2Module,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent],

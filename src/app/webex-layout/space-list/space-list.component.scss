@@ -57,6 +57,8 @@
     border-bottom-style: solid;
     border-width: 1px;
     border-color: #b5b5b5;
+    max-height: 78vh;
+    min-height: 78vh;
 }
 .profile-card{
     display: inline-block;
@@ -156,6 +158,11 @@
     margin-top: 7px;
     margin-left: 0px;
     margin-right: 0px;
+    position: fixed;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 5vh;
+    max-height: 5vh;
 }
 .profile-card:hover {
     background-color: #653f91;
@@ -165,7 +172,7 @@
 
 
 .filter{
-    font-size: 10px;
+    font-size: 12px;
     border-bottom-style: solid;
     border-color: #cbcbcb;
     border-width: 1px;
@@ -182,8 +189,8 @@
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
-    min-height: 74vh;
-    max-height: 74vh;
+    min-height: 76vh;
+    max-height: 76vh;
 }
 .filter-active {
     font-weight: bold;
@@ -205,14 +212,7 @@
     background-color: #7f55ae;
 }
 .one-to-one {
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: #7f55ae;
-    color: #fff;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 10px;
-    margin-left: 5px;
+    color: #7f55ae;
+    font-size: 12px;
+    margin-left: 23px !important;
 }
