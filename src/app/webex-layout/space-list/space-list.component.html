@@ -21,7 +21,7 @@
       <span (click)="this.updatespacelist('all')" [ngClass]="all ? 'filter-active' : ''">All</span> | <span
         (click)="this.updatespacelist('group')" [ngClass]="group ? 'filter-active' : ''">Spaces</span> | <span
         (click)="this.updatespacelist('direct')" [ngClass]="direct ? 'filter-active' : ''">Direct</span>
-      <span class="one-to-one"><fa-icon (click)="openChatModal(chatTemplate)" [icon]="faCommentAlt"></fa-icon></span>
+      <span (click)="openChatModal(chatTemplate)">Start Chat</span>
     </div>
     <div class="card-list">
       <div *ngFor="let a of roomsList; let index = index">
