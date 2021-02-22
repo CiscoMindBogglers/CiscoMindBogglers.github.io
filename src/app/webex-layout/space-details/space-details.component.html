@@ -63,6 +63,7 @@
       ></i>
      <a routerLink="/webex/call" [queryParams]='{"roomID":roomID}'><i
         class="icon icon-audio-and-video-connection_24 md-padding__right--s"
+        style="color:white"
       ></i></a>
       <a *ngIf="type == 'group'" (click)="exitRoom()"
         ><i class="icon icon-exit-room_24"></i

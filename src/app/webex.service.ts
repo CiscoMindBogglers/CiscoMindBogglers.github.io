@@ -191,6 +191,10 @@ export class WebexService {
     });
   }
 
+  async sendOneToOneMessage(req) {
+    return this.webex.messages.create(req);
+  }
+
   async listenRoom() {
     return this.webex.rooms.listen();
   }

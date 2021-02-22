@@ -1,32 +1,39 @@
-<div class="d-flex  main-content justify-content-center ">
-
-
+<div class="main-content">
   <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <br />
-    <br/>
-  <button class="md-button md-button--blue" type="submit" [disabled]="!f.valid">
-    Join Meeting
-  </button>
-
-
+    <br />
+    <div class="d-flex justify-content-center">
+      <button
+        class="md-button md-button--blue create-space"
+        type="submit"
+        *ngIf="!this.cancel"
+      >
+        Join Meeting
+      </button>
+    </div>
   </form>
-  <div *ngIf="this.spinnerVisible">
+  <div class="d-flex justify-content-center" *ngIf="this.spinnerVisible">
     <i class="md-spinner md-spinner--36 md-spinner--black"></i>
   </div>
-  <div class="display">
-    <video class="width justify-content-center " #selfView [muted]="true" autoplay></video>
-    <div class="width justify-content-center">
+  <div>
+    <div class="d-flex justify-content-center">
+      <video class="width" #selfView [muted]="true" autoplay></video>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
       <audio #remoteViewAudio autoplay></audio>
       <video #remoteViewVideo autoplay></video>
     </div>
   </div>
-
-  <button
-  class="md-button md-button--red"
-    type="button"
-    (click)="onHangup()"
-    *ngIf="this.cancel"
-  >
-   cancel
-  </button>
+  <br />
+  <div class="d-flex justify-content-center">
+    <button
+      class="md-button md-button--red"
+      type="button"
+      (click)="onHangup()"
+      *ngIf="this.cancel"
+    >
+      cancel
+    </button>
+  </div>
 </div>

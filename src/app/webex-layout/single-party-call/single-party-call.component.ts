@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { WebexService } from 'src/app/webex.service';
@@ -7,9 +7,9 @@ import { WebexService } from 'src/app/webex.service';
 @Component({
   selector: 'app-single-party-call',
   templateUrl: './single-party-call.component.html',
-  styleUrls: ['./single-party-call.component.sass'],
+  styleUrls: ['./single-party-call.component.scss'],
 })
-export class SinglePartyCallComponent implements OnInit {
+export class SinglePartyCallComponent implements OnInit,OnDestroy {
   @ViewChild('selfView', { static: true }) selfView: ElementRef;
   @ViewChild('remoteViewAudio', { static: true }) remoteViewAudio: ElementRef;
   @ViewChild('remoteViewVideo', { static: true }) remoteViewVideo: ElementRef;
@@ -93,8 +93,10 @@ export class SinglePartyCallComponent implements OnInit {
   }
   onHangup() {
     console.log('left meeting');
-    this.meeting.leave();
-    this.cancel=false;
+    this.meeting.leave().then(()=>{
+      this.cancel=false;
+    });
+
     this.inviteeForm.reset();
   }
   joinMeeting(meeting) {
@@ -119,5 +121,8 @@ export class SinglePartyCallComponent implements OnInit {
         });
       });
     });
+  }
+  ngOnDestroy(){
+    this.initialSetup.onUnregister()
   }
 }
