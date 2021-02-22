@@ -7,14 +7,12 @@
 .topnav-header{
   padding: 15px;
   display: flex;
-  min-height: 10vh;
-  max-height: 10vh;
+  min-height: 7.7vh;
+  max-height: 7.7vh;
   background-color: #7f53ac;
-    background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+  background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
 }
-.space-name-avatar{
-  display: flex;
-}
+
 .space-name {
   margin-left: 10px;
   font-size: large;
@@ -31,7 +29,7 @@
   padding: 10px;
 }
 .message-body {
-  height: 77vh;
+  height: 80vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
