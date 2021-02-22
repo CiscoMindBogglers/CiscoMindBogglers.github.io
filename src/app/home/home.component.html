@@ -1,9 +1,25 @@
-
 <div class="md-panel">
-    
-    <div>Welcome to Webex Teams App! Please click Login to proceed</div>
-    <br>
-    <div class="md-panel__cta">
-        <button class="md-button md-button--blue" [routerLink]="['/auth']" >Login</button>
+  <div class="main-content">
+    <div class="d-flex align-items-center flex-column" style="height: 200px">
+      <div class="mb-auto p-2">
+        <img
+          width="600"
+          height="600"
+          src="/assets/img/welcome.png"
+          alt="image"
+        />
+      </div>
+      <div class="p-2">
+        <h3>Welcome to Mind Bogglers WebEx</h3>
+        <div class="md-panel__cta">
+          <button
+            class="md-button md-button--blue loginButton"
+            [routerLink]="['/auth']"
+          >
+            Login To Proceed
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
